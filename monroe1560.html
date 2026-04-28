@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belgrano Studio · Welcome Guide</title>
+<meta name="description" content="Your home base in Buenos Aires. Welcome guide for Belgrano Studio Airbnb.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #1a1612;
+    --paper: #faf6ef;
+    --cream: #f4ede0;
+    --sand: #e8dfce;
+    --rule: #d9cfba;
+    --accent: #c8553d;
+    --accent-deep: #a64531;
+    --green: #2e6b4a;
+    --subtle: #6b6358;
+    --highlight: #fff4d6;
+    --shadow: 0 1px 3px rgba(26, 22, 18, 0.06), 0 1px 2px rgba(26, 22, 18, 0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 246, 239, 0.92);
+    backdrop-filter: saturate(150%) blur(8px);
+    -webkit-backdrop-filter: saturate(150%) blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .topbar-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .brand-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .lang-toggle {
+    display: flex;
+    background: var(--cream);
+    border-radius: 100px;
+    padding: 3px;
+    border: 1px solid var(--rule);
+  }
+  .lang-toggle button {
+    border: 0;
+    background: transparent;
+    padding: 6px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--subtle);
+    cursor: pointer;
+    border-radius: 100px;
+    transition: all 0.2s ease;
+  }
+  .lang-toggle button.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 20px 40px;
+    position: relative;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    width: 40px;
+    height: 3px;
+    background: var(--accent);
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-top: 18px;
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(44px, 10vw, 76px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+  .hero-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(18px, 3.5vw, 22px);
+    color: var(--subtle);
+    margin-bottom: 28px;
+    max-width: 560px;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-size: 13px;
+    color: var(--subtle);
+  }
+  .hero-meta strong {
+    display: block;
+    color: var(--ink);
+    font-size: 14px;
+    margin-bottom: 2px;
+    font-weight: 600;
+  }
+
+  /* ---------- TOC ---------- */
+  .toc {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px 50px;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    background: var(--paper);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .toc-item:hover { background: var(--cream); }
+  .toc-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    font-size: 16px;
+    min-width: 18px;
+  }
+
+  /* ---------- Sections ---------- */
+  section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    border-top: 1px solid var(--rule);
+  }
+  section:first-of-type { border-top: 0; }
+
+  .section-eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-eyebrow::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(30px, 5vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 22px;
+  }
+  h2 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+  h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+  p { margin-bottom: 14px; }
+  p strong { font-weight: 600; }
+  a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { color: var(--accent); }
+  ul {
+    list-style: none;
+    margin-bottom: 14px;
+  }
+  ul li {
+    padding-left: 22px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  ul li::before {
+    content: "·";
+    position: absolute;
+    left: 6px;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.1;
+  }
+
+  /* ---------- Info Card ---------- */
+  .info-card {
+    background: var(--cream);
+    border-radius: 6px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+  .info-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--sand);
+    font-size: 14px;
+  }
+  .info-row:last-child { border-bottom: 0; }
+  .info-row strong {
+    font-weight: 600;
+    color: var(--subtle);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding-top: 1px;
+  }
+  .info-row a { font-weight: 500; }
+
+  /* ---------- Highlight box ---------- */
+  .callout {
+    background: var(--highlight);
+    border-left: 3px solid var(--accent);
+    padding: 18px 22px;
+    margin: 24px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 15px;
+  }
+  .callout strong { color: var(--accent-deep); }
+
+  /* ---------- Attractions ---------- */
+  .attraction {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .attraction:last-child { border-bottom: 0; }
+  @media (min-width: 600px) {
+    .attraction {
+      grid-template-columns: 180px 1fr;
+      gap: 30px;
+    }
+  }
+  .attraction-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .attraction-distance {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .attraction-desc {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .attraction-desc a { font-size: 13px; }
+
+  /* ---------- Steps ---------- */
+  .step {
+    display: flex;
+    gap: 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .step:last-child { border-bottom: 0; }
+  .step-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    font-size: 32px;
+    line-height: 1;
+    min-width: 36px;
+  }
+  .step-body { font-size: 14px; }
+  .step-body strong { font-size: 15px; }
+
+  /* ---------- Rules table ---------- */
+  .rule-row {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+  }
+  .rule-row:last-child { border-bottom: 0; }
+  .rule-row strong {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 17px;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+
+  /* ---------- Emergency ---------- */
+  .emergency-card {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 28px;
+    border-radius: 6px;
+    margin: 20px 0;
+  }
+  .emergency-card h3 {
+    color: var(--paper);
+    margin-top: 0;
+    font-size: 24px;
+  }
+  .emergency-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(244, 237, 224, 0.15);
+    font-size: 14px;
+  }
+  .emergency-row:last-child { border-bottom: 0; }
+  .emergency-label { color: var(--sand); }
+  .emergency-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: var(--paper);
+    font-size: 16px;
+  }
+  .emergency-num a { color: #ff8c75; text-decoration: none; }
+
+  /* ---------- Phrases ---------- */
+  .phrases {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+  @media (min-width: 600px) {
+    .phrases { grid-template-columns: 1fr 1fr; }
+  }
+  .phrase {
+    display: flex;
+    justify-content: space-between;
+    background: var(--paper);
+    padding: 14px 18px;
+    font-size: 14px;
+    gap: 12px;
+  }
+  .phrase strong { font-weight: 600; }
+  .phrase span {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--accent-deep);
+  }
+
+  /* ---------- Checkout list ---------- */
+  .checkout-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 15px;
+  }
+  .checkout-item:last-child { border-bottom: 0; }
+  .check {
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--rule);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ---------- Map ---------- */
+  .map-wrap {
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 24px 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--rule);
+  }
+  .map-wrap iframe {
+    width: 100%;
+    height: 360px;
+    border: 0;
+    display: block;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 20px 80px;
+    text-align: center;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-mark {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .footer-text {
+    font-size: 13px;
+    color: var(--subtle);
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Lang switching ---------- */
+  [data-lang="en"] .es { display: none; }
+  [data-lang="es"] .en { display: none; }
+
+  /* ---------- Maps button ---------- */
+  .maps-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--accent-deep);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 4px 9px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  .maps-btn:hover {
+    background: var(--accent);
+    color: var(--paper);
+    border-color: var(--accent);
+  }
+  .maps-btn .arrow {
+    font-size: 10px;
+    line-height: 1;
+  }
+  /* On dark emergency card */
+  .emergency-card .maps-btn {
+    background: rgba(244, 237, 224, 0.08);
+    border-color: rgba(244, 237, 224, 0.2);
+    color: var(--sand);
+  }
+  /* In attractions, place after the name, smaller spacing */
+  .attraction-name + .maps-btn,
+  .attraction-distance + .maps-btn {
+    margin-top: 8px;
+    align-self: flex-start;
+  }
+  .attraction > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  /* ---------- Maps button ---------- */
+  .maps-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 4px 10px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .maps-btn:hover {
+    background: var(--accent);
+    color: var(--paper);
+    border-color: var(--accent);
+  }
+  .maps-btn .arrow {
+    font-size: 13px;
+    line-height: 1;
+    margin-top: -1px;
+  }
+
+  /* ---------- Favorites ---------- */
+  .fav-intro {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--subtle);
+    margin: 16px 0 32px;
+    padding-left: 16px;
+    border-left: 2px solid var(--accent);
+  }
+  .fav-category {
+    margin-top: 36px;
+    margin-bottom: 8px;
+  }
+  .fav-category-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--cream);
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .fav-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .fav-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 18px 20px;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .fav-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+  }
+  .fav-card.must {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--highlight) 100%);
+    border-color: var(--accent);
+  }
+  .fav-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 1.2;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .fav-tag {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--accent);
+    padding: 3px 8px;
+    border-radius: 100px;
+    vertical-align: middle;
+  }
+  .fav-desc {
+    font-size: 14px;
+    color: var(--subtle);
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+
+  /* ---------- Maps button ---------- */
+  .maps-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--accent-deep);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 4px 10px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  .maps-btn:hover {
+    background: var(--accent);
+    color: var(--paper);
+    border-color: var(--accent);
+  }
+  .fav-card .maps-btn {
+    background: rgba(255, 255, 255, 0.7);
+  }
+  .fav-card.must .maps-btn {
+    background: rgba(255, 255, 255, 0.9);
+  }
+  .attraction-name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+
+  @media print {
+    .topbar, .lang-toggle { display: none; }
+    body { background: white; }
+    section { page-break-inside: avoid; padding: 30px 0; }
+    h2, h3 { page-break-after: avoid; }
+  }
+
+  /* ---------- Page load animation ---------- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero > * { animation: fadeUp 0.6s ease backwards; }
+  .hero-eyebrow { animation-delay: 0.05s; }
+  .hero-title { animation-delay: 0.15s; }
+  .hero-sub { animation-delay: 0.25s; }
+  .hero-meta { animation-delay: 0.35s; }
+</style>
+</head>
+
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#top" class="brand">
+      <span class="brand-dot"></span>
+      <span>Belgrano Studio</span>
+    </a>
+    <div class="lang-toggle" role="tablist">
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="btn-es" onclick="setLang('es')">ES</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero" id="top">
+  <div class="hero-eyebrow">
+    <span class="en">Welcome Guide</span>
+    <span class="es">Guía de Bienvenida</span>
+  </div>
+  <h1 class="hero-title">
+    <span class="en">Welcome to <em>Belgrano</em>.</span>
+    <span class="es">Bienvenidos a <em>Belgrano</em>.</span>
+  </h1>
+  <p class="hero-sub">
+    <span class="en">Your home base in Buenos Aires. Quiet streets, classic cafés, and everything within walking distance.</span>
+    <span class="es">Tu base en Buenos Aires. Calles tranquilas, cafés clásicos y todo a pocos pasos.</span>
+  </p>
+  <div class="hero-meta">
+    <div>
+      <strong>Monroe 1560</strong>
+      <span class="en">Belgrano · Buenos Aires</span>
+      <span class="es">Belgrano · Buenos Aires</span>
+    </div>
+    <div>
+      <strong>45 m²</strong>
+      <span class="en">Studio · 1st floor · balcony</span>
+      <span class="es">Monoambiente · 1er piso · balcón</span>
+    </div>
+    <div>
+      <strong>2 <span class="en">guests</span><span class="es">huéspedes</span></strong>
+      <span class="en">Queen bed · pool · BBQ</span>
+      <span class="es">Cama matrimonial · pileta · parrilla</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOC ============ -->
+<nav class="toc">
+  <div class="toc-grid">
+    <a href="#essentials" class="toc-item"><span class="toc-num">01</span><span class="en">Essentials</span><span class="es">Datos clave</span></a>
+    <a href="#arrival" class="toc-item"><span class="toc-num">02</span><span class="en">Getting Here</span><span class="es">Cómo llegar</span></a>
+    <a href="#money" class="toc-item"><span class="toc-num">03</span><span class="en">Money</span><span class="es">Dinero</span></a>
+    <a href="#transit" class="toc-item"><span class="toc-num">04</span><span class="en">Getting Around</span><span class="es">Transporte</span></a>
+    <a href="#rules" class="toc-item"><span class="toc-num">05</span><span class="en">House Rules</span><span class="es">Reglas</span></a>
+    <a href="#neighborhood" class="toc-item"><span class="toc-num">06</span><span class="en">Neighborhood</span><span class="es">El barrio</span></a>
+    <a href="#favorites" class="toc-item"><span class="toc-num">07</span><span class="en">My Favorites</span><span class="es">Mis favoritos</span></a>
+    <a href="#bbq" class="toc-item"><span class="toc-num">08</span><span class="en">The Parrilla</span><span class="es">La parrilla</span></a>
+    <a href="#tips" class="toc-item"><span class="toc-num">09</span><span class="en">Practical Tips</span><span class="es">Datos prácticos</span></a>
+    <a href="#emergency" class="toc-item"><span class="toc-num">10</span><span class="en">Emergencies</span><span class="es">Emergencias</span></a>
+    <a href="#checkout" class="toc-item"><span class="toc-num">11</span><span class="en">Check-out</span><span class="es">Check-out</span></a>
+  </div>
+</nav>
+
+<!-- ============ 01 ESSENTIALS ============ -->
+<section id="essentials">
+  <div class="section-eyebrow">
+    <span class="en">01 · The Basics</span>
+    <span class="es">01 · Lo básico</span>
+  </div>
+  <h2>
+    <span class="en"><em>At a</em> glance</span>
+    <span class="es"><em>Datos</em> rápidos</span>
+  </h2>
+
+  <div class="info-card">
+    <div class="info-row">
+      <strong><span class="en">Address</span><span class="es">Dirección</span></strong>
+      <div>Monroe 1560, 1° piso · Belgrano, CABA</div>
+    </div>
+    <div class="info-row">
+      <strong>Wi-Fi</strong>
+      <div>
+        <span class="en">Network name and password are shared in your Airbnb booking details once your reservation is confirmed.</span>
+        <span class="es">El nombre de la red y la clave se comparten en los detalles de tu reserva en Airbnb una vez confirmada.</span>
+      </div>
+    </div>
+    <div class="info-row">
+      <strong>Check-in</strong>
+      <div>
+        <span class="en">After 3:00 PM · Self check-in (lockbox)</span>
+        <span class="es">Después de las 15:00 · Auto check-in (caja de llaves)</span>
+      </div>
+    </div>
+    <div class="info-row">
+      <strong>Check-out</strong>
+      <div>
+        <span class="en">Before 11:00 AM</span>
+        <span class="es">Antes de las 11:00</span>
+      </div>
+    </div>
+    <div class="info-row">
+      <strong><span class="en">Guests</span><span class="es">Huéspedes</span></strong>
+      <div>
+        <span class="en">Maximum 2</span>
+        <span class="es">Máximo 2 personas</span>
+      </div>
+    </div>
+    <div class="info-row">
+      <strong><span class="en">Host</span><span class="es">Anfitrión</span></strong>
+      <div>
+        <span class="en">My WhatsApp is shared in your Airbnb booking details. You can also message me directly through the Airbnb app anytime.</span>
+        <span class="es">Mi WhatsApp se comparte en los detalles de tu reserva en Airbnb. También podés escribirme directamente por la app de Airbnb cuando quieras.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="en"><strong>Need anything?</strong> Message me anytime through the Airbnb app or WhatsApp (if you've saved my number). I usually reply within an hour during the day.</span>
+    <span class="es"><strong>¿Necesitás algo?</strong> Escribime cuando quieras por la app de Airbnb o WhatsApp (si guardaste mi número). Suelo responder en menos de una hora durante el día.</span>
+  </div>
+</section>
+
+<!-- ============ 02 ARRIVAL ============ -->
+<section id="arrival">
+  <div class="section-eyebrow">
+    <span class="en">02 · Arrival</span>
+    <span class="es">02 · Llegada</span>
+  </div>
+  <h2>
+    <span class="en"><em>Getting</em> here</span>
+    <span class="es"><em>Cómo</em> llegar</span>
+  </h2>
+
+  <h3><span class="en">From Ezeiza International (EZE)</span><span class="es">Desde Ezeiza Internacional (EZE)</span></h3>
+  <p>
+    <span class="en">Ezeiza is about 35 km south of the apartment. Travel time is <strong>45 to 60 minutes</strong> depending on traffic.</span>
+    <span class="es">Ezeiza está a unos 35 km al sur del depto. El viaje toma <strong>45 a 60 minutos</strong> según el tráfico.</span>
+  </p>
+  <ul>
+    <li>
+      <span class="en"><strong>Cabify or Uber</strong> (~USD 18 to 25): the easiest option. Set the destination to <em>Monroe 1560, Belgrano</em>.</span>
+      <span class="es"><strong>Cabify o Uber</strong> (USD 18 a 25): la opción más fácil. Marcá <em>Monroe 1560, Belgrano</em>.</span>
+    </li>
+    <li>
+      <span class="en"><strong>Taxi Ezeiza (official)</strong> (~USD 30 to 35): booth inside the terminal, fixed price.</span>
+      <span class="es"><strong>Taxi Ezeiza (oficial)</strong> (USD 30 a 35): mostrador adentro de la terminal, precio fijo.</span>
+    </li>
+    <li>
+      <span class="en"><strong>Tienda León bus</strong> (~USD 10): cheaper, slower; ends downtown, then taxi (~10 min).</span>
+      <span class="es"><strong>Bus Tienda León</strong> (USD 10): más barato, más lento. Termina en el centro, después taxi (10 min).</span>
+    </li>
+  </ul>
+
+  <h3><span class="en">From Aeroparque (AEP)</span><span class="es">Desde Aeroparque (AEP)</span></h3>
+  <p>
+    <span class="en">Just <strong>15 minutes</strong> by taxi (~USD 8 to 12). Cabify and Uber both work well.</span>
+    <span class="es">A solo <strong>15 minutos</strong> en taxi (USD 8 a 12). Cabify y Uber funcionan bien.</span>
+  </p>
+</section>
+
+<!-- ============ 03 MONEY ============ -->
+<section id="money">
+  <div class="section-eyebrow">
+    <span class="en">03 · Money</span>
+    <span class="es">03 · Dinero</span>
+  </div>
+  <h2>
+    <span class="en"><em>Money</em> in Argentina</span>
+    <span class="es"><em>Dinero</em> en Argentina</span>
+  </h2>
+
+  <div class="callout">
+    <span class="en"><strong>Read this first.</strong> Argentina has multiple exchange rates. With a foreign credit card or Western Union you get the <strong>"dólar MEP"</strong> rate, roughly 30 to 40% better than ATMs and banks. The difference is real.</span>
+    <span class="es"><strong>Leé esto primero.</strong> Argentina tiene varios tipos de cambio. Con tarjeta extranjera o Western Union obtenés el <strong>"dólar MEP"</strong>, entre 30% y 40% mejor que cajeros y bancos. La diferencia es real.</span>
+  </div>
+
+  <h3><span class="en">Best ways to get pesos</span><span class="es">Las mejores formas de conseguir pesos</span></h3>
+
+  <h4>1. Western Union</h4>
+  <p>
+    <span class="en">The best rate for cash. Send money to yourself online, pick up in pesos at any branch. The reliable nearby branch is at <strong>La Pampa 2451</strong>, 10 min walking. It's the official location with multiple windows and less wait. Bring your passport. <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJPwgNGxS1vJURItmhcOeLJxo" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
+    <span class="es">La mejor cotización para efectivo. Te enviás dinero a vos mismo online y lo retirás en pesos en cualquier sucursal. La sucursal confiable cerca es <strong>La Pampa 2451</strong>, a 10 min caminando. Es el local oficial con varias ventanillas y menos espera. Llevá pasaporte. <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJPwgNGxS1vJURItmhcOeLJxo" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
+  </p>
+
+  <h4><span class="en">2. Foreign credit/debit cards</span><span class="es">2. Tarjeta extranjera</span></h4>
+  <p>
+    <span class="en">Visa and Mastercard automatically apply the MEP rate. Use them confidently in restaurants, supermarkets, and stores. Avoid AMEX (worse rate, lower acceptance).</span>
+    <span class="es">Visa y Mastercard aplican el dólar MEP automáticamente. Usalas tranquilo en restaurantes, supermercados y comercios. Evitá AMEX (peor cotización y menos aceptación).</span>
+  </p>
+
+  <h4><span class="en">3. Avoid ATMs</span><span class="es">3. Evitá los cajeros</span></h4>
+  <p>
+    <span class="en">They give the official rate, charge high fees, and limit you to small amounts. Use only in emergencies.</span>
+    <span class="es">Usan el cambio oficial, cobran comisiones altas y limitan el retiro. Solo para emergencias.</span>
+  </p>
+
+  <h3><span class="en">Tipping</span><span class="es">Propinas</span></h3>
+  <p>
+    <span class="en">Restaurant tip is typically <strong>10%</strong>, often suggested on the bill. Cash tips in pesos are appreciated even when you pay by card.</span>
+    <span class="es">La propina en restaurantes es del <strong>10%</strong>, normalmente sugerida en la cuenta. Las propinas en efectivo en pesos siempre se agradecen, incluso si pagás con tarjeta.</span>
+  </p>
+</section>
+
+<!-- ============ 04 TRANSIT ============ -->
+<section id="transit">
+  <div class="section-eyebrow">
+    <span class="en">04 · Transit</span>
+    <span class="es">04 · Transporte</span>
+  </div>
+  <h2>
+    <span class="en"><em>Getting</em> around</span>
+    <span class="es"><em>Cómo</em> moverse</span>
+  </h2>
+
+  <h3><span class="en">SUBE Card</span><span class="es">Tarjeta SUBE</span></h3>
+  <p>
+    <span class="en">The SUBE card is required for all public transport (bus, subway, train). Buy one at any kiosco for ~USD 1 and load credit at any kiosco displaying the SUBE logo. One card can be shared.</span>
+    <span class="es">La tarjeta SUBE es obligatoria para usar el transporte público (colectivo, subte, tren). Se compra en cualquier kiosco por unos USD 1 y se carga en kioscos con el logo SUBE. Una sola tarjeta puede compartirse.</span>
+  </p>
+
+  <h3><span class="en">Subway & train nearby</span><span class="es">Subte y tren cerca</span></h3>
+  <ul>
+    <li>
+      <span class="en"><strong>Subway Line D</strong> at Congreso de Tucumán station, about 10 minutes walking. Direct line to downtown. <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJj45bHCq0vJURh5d8Ho2lybM" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
+      <span class="es"><strong>Subte línea D</strong> en la estación Congreso de Tucumán, a 10 minutos caminando. Te lleva directo al centro. <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJj45bHCq0vJURh5d8Ho2lybM" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
+    </li>
+    <li>
+      <span class="en"><strong>Belgrano C train station</strong> at Av. Virrey Vértiz (between Juramento and Sucre), less than 10 min walking. Connects to Tigre Delta and Retiro (downtown). Mitre Line. <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJddGtA821vJURpunGRo96aXE" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
+      <span class="es"><strong>Estación Belgrano C</strong> en Av. Virrey Vértiz (entre Juramento y Sucre), a menos de 10 min caminando. Conecta con el Delta del Tigre y Retiro (centro). Línea Mitre. <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJddGtA821vJURpunGRo96aXE" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
+    </li>
+  </ul>
+
+  <h3><span class="en">Apps you'll want</span><span class="es">Apps que vas a querer</span></h3>
+  <ul>
+    <li><strong>Cabify</strong> / <strong>Uber</strong>: <span class="en">taxis, generally safe and reliable</span><span class="es">taxis, seguros y confiables</span></li>
+    <li><strong>BA Cómo Llego</strong>: <span class="en">official city app for transit routes</span><span class="es">app oficial de la ciudad para rutas de transporte</span></li>
+    <li><strong>Rappi</strong> / <strong>PedidosYa</strong>: <span class="en">food and grocery delivery</span><span class="es">delivery de comida y supermercado</span></li>
+    <li><strong>Google Maps</strong>: <span class="en">works perfectly for walking and driving</span><span class="es">funciona perfecto para caminar y manejar</span></li>
+  </ul>
+
+  <h3><span class="en">Getting downtown</span><span class="es">Para ir al centro</span></h3>
+  <p>
+    <span class="en">Avenida del Libertador is right outside the building. Buses 130, 67, and 152 go downtown in 25 to 30 minutes. A taxi or Uber is around USD 6 to 8.</span>
+    <span class="es">La Avenida del Libertador está justo afuera. Los colectivos 130, 67 y 152 te llevan al centro en 25 a 30 minutos. Taxi o Uber cuesta USD 6 a 8.</span>
+  </p>
+
+  <h3>🚲 <span class="en">Ecobici (city bikes)</span><span class="es">Ecobici (bicis públicas)</span></h3>
+  <p>
+    <span class="en">Buenos Aires has an excellent public bike system called <strong>Ecobici</strong>, with 369 stations across 47 neighborhoods and over 300 km of protected bike lanes. It's one of the best ways to explore the city, especially the Lakes of Palermo, the Costanera, and the riverside parks. <strong>Ride carefully:</strong> Buenos Aires traffic can be intense, so stick to the protected bike lanes (<em>bicisendas</em>) whenever possible.</span>
+    <span class="es">Buenos Aires tiene un sistema público de bicicletas excelente llamado <strong>Ecobici</strong>, con 369 estaciones en 47 barrios y más de 300 km de bicisendas protegidas. Es una de las mejores formas de explorar la ciudad, en especial los Lagos de Palermo, la Costanera y los parques costeros. <strong>Pedaleá con cuidado:</strong> el tráfico de Buenos Aires puede ser intenso, así que mantenete en las bicisendas protegidas siempre que puedas.</span>
+  </p>
+
+  <h4><span class="en">How it works for tourists</span><span class="es">Cómo funciona para turistas</span></h4>
+  <ul>
+    <li>
+      <span class="en">Download the <strong>BA Ecobici by Tembici</strong> app (iOS / Android).</span>
+      <span class="es">Descargá la app <strong>BA Ecobici por Tembici</strong> (iOS / Android).</span>
+    </li>
+    <li>
+      <span class="en">Register with a credit or debit card. You'll need to upload a scan of your passport.</span>
+      <span class="es">Registrate con tarjeta de crédito o débito. Vas a tener que subir una foto del pasaporte.</span>
+    </li>
+    <li>
+      <span class="en">Buy a <strong>Tourist Pass</strong>: <em>Daily</em> (~ARS 900) or <em>Monthly</em> (~ARS 3,500). Both give you 6 trips per day of up to 60 minutes.</span>
+      <span class="es">Comprá un <strong>Pase Turístico</strong>: <em>Diario</em> (ARS 900 aprox.) o <em>Mensual</em> (ARS 3.500 aprox.). Ambos te dan 6 viajes por día de hasta 60 minutos.</span>
+    </li>
+    <li>
+      <span class="en">At any station: scan the QR on the bike's handlebar from the app, wait for the green light, and go.</span>
+      <span class="es">En cualquier estación: escaneá el QR del manubrio desde la app, esperá la luz verde y arrancá.</span>
+    </li>
+    <li>
+      <span class="en">Return at any station, lock it correctly, wait for the beep + green light. Wait 15 minutes between rides.</span>
+      <span class="es">Devolvelas en cualquier estación, anclalas bien, esperá el beep y la luz verde. Hay que esperar 15 min entre viajes.</span>
+    </li>
+  </ul>
+
+  <p>
+    <span class="en">Use Google Maps in <em>Bicycle</em> mode to see the bike-lane network and route safely. More info: <a href="https://buenosaires.gob.ar/infraestructura/movilidad/que-es-ecobici/ecobici-para-turistas" target="_blank" rel="noopener">Ecobici for tourists →</a></span>
+    <span class="es">Usá Google Maps en modo <em>Bicicleta</em> para ver la red de bicisendas y armar rutas seguras. Más info: <a href="https://buenosaires.gob.ar/infraestructura/movilidad/que-es-ecobici/ecobici-para-turistas" target="_blank" rel="noopener">Ecobici para turistas →</a></span>
+  </p>
+
+  <div class="callout">
+    <span class="en"><strong>Pro tip:</strong> a perfect bike route from the apartment goes like this. Head down Monroe to Av. Alcorta, into the Palermo Lakes, around the Rosedal, and back along the Costanera. About an hour, almost entirely on bike lanes.</span>
+    <span class="es"><strong>Tip:</strong> ruta perfecta desde el depto. Bajá Monroe hasta Av. Alcorta, entrá a los Lagos de Palermo, vuelta al Rosedal y volvé por la Costanera. Una hora, casi todo por bicisendas.</span>
+  </div>
+</section>
+
+<!-- ============ 05 RULES ============ -->
+<section id="rules">
+  <div class="section-eyebrow">
+    <span class="en">05 · House Rules</span>
+    <span class="es">05 · Reglas</span>
+  </div>
+  <h2>
+    <span class="en"><em>House</em> rules</span>
+    <span class="es"><em>Reglas</em> de la casa</span>
+  </h2>
+
+  <div class="rule-row">
+    <strong><span class="en">Check-in / Check-out</span><span class="es">Check-in / Check-out</span></strong>
+    <span class="en">Self check-in after 3:00 PM. Check-out by 11:00 AM. Let me know in advance if you need flexibility.</span>
+    <span class="es">Auto check-in después de las 15:00. Check-out antes de las 11:00. Avisame con tiempo si necesitás flexibilidad.</span>
+  </div>
+  <div class="rule-row">
+    <strong><span class="en">Maximum guests</span><span class="es">Máximo de huéspedes</span></strong>
+    <span class="en">2 people. No additional overnight guests.</span>
+    <span class="es">2 personas. No se permiten huéspedes adicionales para pasar la noche.</span>
+  </div>
+  <div class="rule-row">
+    <strong><span class="en">No parties or events</span><span class="es">Sin fiestas ni eventos</span></strong>
+    <span class="en">This is a residential building. Loud music, gatherings, or events are not allowed.</span>
+    <span class="es">Es un edificio residencial. No se permiten eventos, reuniones ni música alta.</span>
+  </div>
+  <div class="rule-row">
+    <strong><span class="en">Quiet hours</span><span class="es">Horario de silencio</span></strong>
+    <span class="en">10:00 PM to 8:00 AM. Please respect neighbors.</span>
+    <span class="es">De 22:00 a 08:00. Respetá a los vecinos.</span>
+  </div>
+  <div class="rule-row">
+    <strong><span class="en">No smoking inside</span><span class="es">No fumar dentro</span></strong>
+    <span class="en">No smoking inside the apartment. The balcony is OK.</span>
+    <span class="es">No se permite fumar dentro del depto. En el balcón está bien.</span>
+  </div>
+  <div class="rule-row">
+    <strong><span class="en">No pets</span><span class="es">Sin mascotas</span></strong>
+    <span class="en">Unfortunately we don't allow pets. Service animals are always welcome as required by law.</span>
+    <span class="es">Lamentablemente no aceptamos mascotas. Animales de servicio siempre son bienvenidos.</span>
+  </div>
+  <div class="rule-row">
+    <strong><span class="en">Common areas</span><span class="es">Áreas comunes</span></strong>
+    <span class="en">Pool, BBQ, and SUM (common room) are shared with other residents. Follow building rules and clean after use.</span>
+    <span class="es">La pileta, parrilla y SUM son compartidos. Respetá las reglas del edificio y dejá todo limpio.</span>
+  </div>
+  <div class="rule-row">
+    <strong><span class="en">Trash</span><span class="es">Basura</span></strong>
+    <span class="en">Take trash to the building's collection area. Recycling bags are under the kitchen sink.</span>
+    <span class="es">Llevá la basura al área de recolección del edificio. Las bolsas de reciclaje están bajo la pileta de la cocina.</span>
+  </div>
+  <div class="rule-row">
+    <strong><span class="en">Damage</span><span class="es">Daños</span></strong>
+    <span class="en">Accidents happen, just let me know. Significant damage may be charged.</span>
+    <span class="es">Los accidentes pasan, simplemente avisame. Daños importantes pueden ser cobrados.</span>
+  </div>
+  <div class="rule-row">
+    <strong><span class="en">Building access</span><span class="es">Acceso al edificio</span></strong>
+    <span class="en">There is no doorman. Keep the main entrance closed and don't share access codes.</span>
+    <span class="es">No hay portero. Mantené cerrada la entrada principal y no compartas los códigos de acceso.</span>
+  </div>
+</section>
+
+<!-- ============ 06 NEIGHBORHOOD ============ -->
+<section id="neighborhood">
+  <div class="section-eyebrow">
+    <span class="en">06 · The Neighborhood</span>
+    <span class="es">06 · El barrio</span>
+  </div>
+  <h2>
+    <span class="en"><em>The</em> neighborhood</span>
+    <span class="es"><em>El</em> barrio</span>
+  </h2>
+
+  <p>
+    <span class="en">Belgrano is one of the most elegant and walkable neighborhoods in Buenos Aires. Tree-lined streets, classic cafés, modern restaurants, and excellent transit. Within 3 blocks of the apartment you'll find supermarkets, bakeries, pharmacies, and ATMs.</span>
+    <span class="es">Belgrano es uno de los barrios más elegantes y caminables de Buenos Aires. Calles arboladas, cafés clásicos, restaurantes modernos y excelentes conexiones. A 3 cuadras del depto vas a encontrar supermercados, panaderías, farmacias y cajeros.</span>
+  </p>
+
+  <div class="map-wrap">
+    <iframe
+      src="https://www.google.com/maps?q=Monroe+1560,+Belgrano,+Buenos+Aires&output=embed"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Map">
+    </iframe>
+  </div>
+
+  <h3><span class="en">Nearby attractions</span><span class="es">Atracciones cercanas</span></h3>
+
+  <div class="attraction">
+    <div>
+      <div class="attraction-name-row">
+        <div class="attraction-name">Barrio Chino</div>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJk98H6tO1vJURpL2l1VBRe5Q" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="attraction-distance"><span class="en">5 min walking</span><span class="es">5 min caminando</span></div>
+    </div>
+    <div class="attraction-desc">
+      <span class="en">A must-visit. Dumplings, ramen, bubble tea, Chinese supermarkets, and a brand-new pedestrian alley packed with restaurants and bars. Best on weekends.</span>
+      <span class="es">Imperdible. Dumplings, ramen, bubble tea, supermercados chinos y un nuevo pasaje peatonal lleno de bares y restaurantes. Mejor los fines de semana.</span>
+    </div>
+  </div>
+
+  <div class="attraction">
+    <div>
+      <div class="attraction-name-row">
+        <div class="attraction-name"><span class="en">Avenida Cabildo</span><span class="es">Avenida Cabildo</span></div>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:Ek1Bdi4gQ2FiaWxkbyAmIEF2LiBKdXJhbWVudG8sIEMxNDI4IENkYWQuIEF1dMOzbm9tYSBkZSBCdWVub3MgQWlyZXMsIEFyZ2VudGluYSJmImQKFAoSCbttnYTTtbyVERZtoBN_fqE0EhQKEgm7bZ2E07W8lREWbaATf36hNBoUChIJ9X8d7yy0vJURVSdwKFqas7EaFAoSCdkqZrZ4tryVEUPZ9QKxbq8FIgoNtj9m6xVxNyjd" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="attraction-distance"><span class="en">10 min walking</span><span class="es">10 min caminando</span></div>
+    </div>
+    <div class="attraction-desc">
+      <span class="en">The classic Belgrano shopping avenue. The iconic <strong>Cabildo & Juramento</strong> corner is the heart of the neighborhood: bookstores, cafés, big retail, and street energy.</span>
+      <span class="es">La avenida clásica de Belgrano. La icónica esquina de <strong>Cabildo y Juramento</strong> es el corazón del barrio: librerías, cafés, comercios grandes y la energía de la calle.</span>
+    </div>
+  </div>
+
+  <div class="attraction">
+    <div>
+      <div class="attraction-name-row">
+        <div class="attraction-name">Estadio Monumental</div>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJ340B5jq0vJURijD6W6dgfz0" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="attraction-distance"><span class="en">15 min walking</span><span class="es">15 min caminando</span></div>
+    </div>
+    <div class="attraction-desc">
+      <span class="en">Home of River Plate and where Argentina's 2022 World Cup champions trained. Stadium tours available; match tickets only via authorized resellers.</span>
+      <span class="es">Estadio de River Plate, donde entrenó la Selección campeona del mundo 2022. Hay visitas guiadas. Entradas para partidos solo por revendedores oficiales.</span>
+    </div>
+  </div>
+
+  <div class="attraction">
+    <div>
+      <div class="attraction-name-row">
+        <div class="attraction-name"><span class="en">Costanera</span><span class="es">Costanera</span></div>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:EklBdi4gQ29zdGFuZXJhIFJhZmFlbCBPYmxpZ2FkbywgQ2RhZC4gQXV0w7Nub21hIGRlIEJ1ZW5vcyBBaXJlcywgQXJnZW50aW5hIi4qLAoUChIJcYMVyRK1vJURQ0VDcKnpzZYSFAoSCb0M-U47yryVEYeO6IgugbOg" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="attraction-distance"><span class="en">10 min by bus/Uber</span><span class="es">10 min en bus/Uber</span></div>
+    </div>
+    <div class="attraction-desc">
+      <span class="en">Recently renovated riverside walk along the Río de la Plata. Beautiful for a stroll, with several great spots to grab a bite or a drink with a water view.</span>
+      <span class="es">El paseo costero del Río de la Plata, renovado hace poco. Hermoso para caminar, con varios lugares lindos para comer o tomar algo con vista al agua.</span>
+    </div>
+  </div>
+
+  <div class="attraction">
+    <div>
+      <div class="attraction-name-row">
+        <div class="attraction-name"><span class="en">Lakes & Rosedal (Palermo)</span><span class="es">Lagos y Rosedal (Palermo)</span></div>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJ10xgN561vJURkon23PB48-E" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="attraction-distance"><span class="en">20 min walking</span><span class="es">20 min caminando</span></div>
+    </div>
+    <div class="attraction-desc">
+      <span class="en">Walk down Monroe 7 blocks to Av. Alcorta and continue to the Palermo Lakes. Keep going and you'll reach the Rosedal, Buenos Aires' rose garden. Perfect on a sunny afternoon.</span>
+      <span class="es">Bajá Monroe 7 cuadras hasta Av. Alcorta y seguí hasta los Lagos de Palermo. Si seguís, llegás al Rosedal. Ideal para una tarde de sol.</span>
+    </div>
+  </div>
+
+  <div class="attraction">
+    <div>
+      <div class="attraction-name-row">
+        <div class="attraction-name"><span class="en">Palermo & Distrito Arcos</span><span class="es">Palermo y Distrito Arcos</span></div>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJQdN_e8urSgARbCg4bRUD2NQ" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="attraction-distance"><span class="en">10 min by Uber</span><span class="es">10 min en Uber</span></div>
+    </div>
+    <div class="attraction-desc">
+      <span class="en">A few minutes by Uber gets you to Palermo's restaurants and nightlife. <strong>Distrito Arcos</strong> is an open-air outlet mall under restored railway arches, with international and local brands, a food court, and weekend events.</span>
+      <span class="es">A pocos minutos en Uber tenés Palermo y su gastronomía y vida nocturna. <strong>Distrito Arcos</strong> es un outlet a cielo abierto bajo los arcos del ferrocarril, con marcas locales e internacionales, patio de comidas y eventos.</span>
+    </div>
+  </div>
+
+  <div class="attraction">
+    <div>
+      <div class="attraction-name-row">
+        <div class="attraction-name"><span class="en">Hipódromo de Palermo</span><span class="es">Hipódromo de Palermo</span></div>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJm_83jKK1vJURi3Q-8AcPmyg" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="attraction-distance"><span class="en">10 min by Uber</span><span class="es">10 min en Uber</span></div>
+    </div>
+    <div class="attraction-desc">
+      <span class="en">A historic horse racing track with a stunning Beaux-Arts grandstand. Free entry to the grounds; check schedules for race days.</span>
+      <span class="es">Un hipódromo histórico con una tribuna Beaux-Arts impresionante. Entrada libre al predio; consultá programación para días de carrera.</span>
+    </div>
+  </div>
+
+  <div class="attraction">
+    <div>
+      <div class="attraction-name-row">
+        <div class="attraction-name"><span class="en">Tigre Delta</span><span class="es">Delta del Tigre</span></div>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Tigre+Delta+Buenos+Aires" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="attraction-distance"><span class="en">~50 min by train</span><span class="es">~50 min en tren</span></div>
+    </div>
+    <div class="attraction-desc">
+      <span class="en">A river delta of islands and waterways, perfect for a half-day trip. The Belgrano C train station is less than 10 minutes walking from the apartment. <a href="https://www.tigre.gob.ar/tigre/turismo" target="_blank" rel="noopener">Tigre tourism →</a></span>
+      <span class="es">Un delta de islas y canales, ideal para una excursión de medio día. La estación Belgrano C está a menos de 10 minutos caminando. <a href="https://www.tigre.gob.ar/tigre/turismo" target="_blank" rel="noopener">Turismo Tigre →</a></span>
+    </div>
+  </div>
+
+  <div class="attraction">
+    <div>
+      <div class="attraction-name-row">
+        <div class="attraction-name">Vicente López</div>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJPSSbelOxvJURx2RPHjYNdC0" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="attraction-distance"><span class="en">15 min by Uber</span><span class="es">15 min en Uber</span></div>
+    </div>
+    <div class="attraction-desc">
+      <span class="en">A neighboring town just north with a beautifully renovated coastal promenade. Great for long walks, with cyclists, riverside cafés, and weekend energy.</span>
+      <span class="es">Un partido vecino al norte con un paseo costero recientemente renovado. Ideal para caminatas largas, con ciclistas, cafés con vista al río y energía de fin de semana.</span>
+    </div>
+  </div>
+
+  <div class="attraction">
+    <div>
+      <div class="attraction-name"><span class="en">Buenos Aires Bus</span><span class="es">Buenos Aires Bus</span></div>
+      <div class="attraction-distance"><span class="en">Stop on Av. Libertador</span><span class="es">Parada en Av. Libertador</span></div>
+    </div>
+    <div class="attraction-desc">
+      <span class="en">The hop-on hop-off tourist bus passes near the apartment. A great way to see the main sights in a day. <a href="https://www.buenosairesbus.com/" target="_blank" rel="noopener">buenosairesbus.com →</a></span>
+      <span class="es">El bus turístico (hop-on hop-off) pasa cerca del depto. Ideal para ver los principales puntos en un día. <a href="https://www.buenosairesbus.com/" target="_blank" rel="noopener">buenosairesbus.com →</a></span>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="en"><strong>Free city events all year.</strong> Buenos Aires has a packed calendar of free cultural events: concerts, exhibitions, tango nights, festivals. Check <a href="https://turismo.buenosaires.gob.ar/es" target="_blank" rel="noopener">the city's official tourism site</a>.</span>
+    <span class="es"><strong>Eventos gratuitos todo el año.</strong> La ciudad tiene un calendario lleno de eventos culturales gratuitos: conciertos, muestras, milongas, festivales. Mirá <a href="https://turismo.buenosaires.gob.ar/es" target="_blank" rel="noopener">el sitio oficial de turismo</a>.</span>
+  </div>
+</section>
+
+<!-- ============ 07 FAVORITES ============ -->
+<section id="favorites">
+  <div class="section-eyebrow">
+    <span class="en">07 · My Favorites</span>
+    <span class="es">07 · Mis favoritos</span>
+  </div>
+  <h2>
+    <span class="en"><em>My</em> favorites</span>
+    <span class="es"><em>Mis</em> favoritos</span>
+  </h2>
+
+  <p class="fav-intro">
+    <span class="en">A short, honest list of places I actually go. No tourist traps. Just the spots that make the neighborhood feel like home.</span>
+    <span class="es">Una lista corta y honesta de los lugares a los que realmente voy. Sin trampas para turistas. Solo los lugares que hacen que el barrio se sienta como casa.</span>
+  </p>
+
+  <div class="fav-category">
+    <span class="fav-category-label"><span class="en">Coffee · Cafés</span><span class="es">Cafés</span></span>
+  </div>
+  <div class="fav-list">
+    <div class="fav-card">
+      <div class="fav-name">
+        Báltica Café
+        <span class="fav-tag"><span class="en">specialty</span><span class="es">de autor</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJH-kds7y1vJURMpQRg8F-DzA" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Specialty coffee in Núñez (Quesada 1798). Pet-friendly, beautiful pastry, perfect spot for a slow morning. Open every day until 8 PM.</span>
+        <span class="es">Café de especialidad en Núñez (Quesada 1798). Pet-friendly, panadería hermosa, ideal para una mañana sin apuro. Abre todos los días hasta las 20.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Cuervo Café
+        <span class="fav-tag"><span class="en">specialty</span><span class="es">de autor</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJpywsIrq1vJURZYcP-HGQHkk" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Bajo Belgrano branch (Juramento 1284). Specialty coffee with their own Colombian blend, plus homemade ice cream. A great combo. Closed Mondays.</span>
+        <span class="es">Sucursal de Bajo Belgrano (Juramento 1284). Café de especialidad con blend colombiano propio, más helado artesanal. Combo perfecto. Cierra los lunes.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Dos Escudos
+        <span class="fav-tag"><span class="en">classic</span><span class="es">clásico</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJRxb15Nu1vJURHLoMdEHP7nM" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Right in Chinatown (Arribeños 2321). Not specialty coffee, but a Buenos Aires classic. Sandwiches de miga, medialunas, and the real neighborhood vibe. Open every day from 7 AM.</span>
+        <span class="es">En pleno Barrio Chino (Arribeños 2321). No es café de autor, pero sí un clásico porteño. Sandwiches de miga, medialunas y la vibe del barrio. Abierto todos los días desde las 7.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fav-category" style="margin-top: 44px;">
+    <span class="fav-category-label"><span class="en">Restaurants · Bodegones</span><span class="es">Bodegones y restaurantes</span></span>
+  </div>
+  <div class="fav-list">
+    <div class="fav-card must">
+      <div class="fav-name">
+        El Antojo Núñez
+        <span class="fav-tag">⭐ <span class="en">a must</span><span class="es">imperdible</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJF82ySJi1vJURdd8IFTiJXuI" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en"><strong>If you only go to one place, go here.</strong> Manuel Ugarte 1699. Award-winning milanesas: generous, golden, served on huge plates. One order easily feeds two. Reserve, especially on weekends.</span>
+        <span class="es"><strong>Si vas a uno solo, andá a este.</strong> Manuel Ugarte 1699. Las milanesas premiadas: generosas, doraditas, en platos enormes. Un pedido alcanza para dos. Reservá, sobre todo los fines de semana.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Cantina Núñez
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJCcxyN3m1vJURufgX_uDk_UM" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Italian-Argentine cantina (Manuel Ugarte 1682), right across from El Antojo. Decor inspired by The Godfather. Homemade pasta: try the osobuco-stuffed ravioli or the lasagna. Reserve for dinner.</span>
+        <span class="es">Cantina italo-argentina (Manuel Ugarte 1682), justo enfrente de El Antojo. Decorada con la temática de El Padrino. Pastas caseras: probá los ravioles de osobuco o la lasaña. Reservá para la cena.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Bodegón Núñez
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJ95GN7ya0vJUR6uNzHSXFLEU" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">A traditional Argentine bodegón (Arribeños 3198), same owners as Cantina Núñez. Big portions, no fuss. Try the milanesa napolitana or a steak. Open every day.</span>
+        <span class="es">Un bodegón clásico (Arribeños 3198), mismos dueños que Cantina Núñez. Porciones generosas, sin vueltas. Probá la milanesa napolitana o un buen bife. Abre todos los días.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Togni's Pizza
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJP7ENABS1vJURYJbZJGkegRo" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">By chef Máximo Togni (Blanco Encalada 1675), a few blocks away in Bajo Belgrano. Argentine-style pizza with character: thick, generous, plenty of cheese. Try the muzzarella or the fugazzeta.</span>
+        <span class="es">Del chef Máximo Togni (Blanco Encalada 1675), a unas cuadras en Bajo Belgrano. Pizza porteña con carácter: gruesa, abundante, con mucho queso. Probá la muzzarella o la fugazzeta.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Aire Libre
+        <span class="fav-tag">🌿 <span class="en">scenic</span><span class="es">hermoso</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJY4wivp61vJURnGSPwRQL9lc" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Modern Buenos Aires cuisine in a beautiful urban garden (Av. del Libertador 6327), just a few blocks from the apartment. Centenary trees, glass walls, executive lunch menus and dinner from 6 PM. Closed Mondays.</span>
+        <span class="es">Cocina porteña moderna en un jardín urbano hermoso (Av. del Libertador 6327), a pocas cuadras del depto. Árboles centenarios, paredes vidriadas, menú ejecutivo al mediodía y cena desde las 18. Cierra los lunes.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 32px;">
+    <span class="en"><strong>Pro tip:</strong> reservations are a good idea on weekends. Most places take walk-ins during the week. Argentines eat dinner late, so restaurants get busy from 9 PM onwards.</span>
+    <span class="es"><strong>Tip:</strong> los fines de semana conviene reservar. De semana, casi todos los lugares aceptan walk-ins. Los argentinos cenan tarde, así que los restaurantes se llenan a partir de las 21:00.</span>
+  </div>
+</section>
+
+<!-- ============ 08 BBQ ============ -->
+<section id="bbq">
+  <div class="section-eyebrow">
+    <span class="en">08 · The Parrilla</span>
+    <span class="es">08 · La parrilla</span>
+  </div>
+  <h2>
+    <span class="en"><em>Using</em> the parrilla</span>
+    <span class="es"><em>Usar</em> la parrilla</span>
+  </h2>
+
+  <p>
+    <span class="en">The Argentine asado is a ritual, not just a meal. The building's parrilla is available for residents and guests. Here's how to do it like a local.</span>
+    <span class="es">El asado argentino es un ritual, no solo una comida. La parrilla del edificio está disponible para residentes y huéspedes. Acá te explico cómo hacerlo como un local.</span>
+  </p>
+
+  <h3><span class="en">What you'll need</span><span class="es">Lo que necesitás</span></h3>
+  <ul>
+    <li><span class="en">Charcoal (<em>carbón</em>): buy a 3 to 5 kg bag at any kiosco or supermarket</span><span class="es">Carbón: bolsa de 3 a 5 kg en cualquier kiosco o supermercado</span></li>
+    <li><span class="en">Firewood (<em>leña</em>): optional but adds flavor</span><span class="es">Leña: opcional, suma sabor</span></li>
+    <li><span class="en">Newspaper or firelighters (<em>pastillas</em>)</span><span class="es">Papel de diario o pastillas para encender</span></li>
+    <li><span class="en">Long lighter or matches</span><span class="es">Encendedor largo o fósforos</span></li>
+    <li><span class="en">Meat: skirt steak (<em>vacío</em>), short ribs (<em>tira de asado</em>), or chorizo are classics</span><span class="es">Carne: vacío, tira de asado o chorizo son clásicos</span></li>
+    <li><span class="en">Coarse salt only. No marinades, no sauce. Trust the meat.</span><span class="es">Solo sal gruesa. Sin marinadas ni salsas. Confiá en la carne.</span></li>
+  </ul>
+
+  <h3><span class="en">Steps</span><span class="es">Pasos</span></h3>
+
+  <div class="step">
+    <div class="step-num">01</div>
+    <div class="step-body">
+      <strong><span class="en">Build the fire pile.</span><span class="es">Armá la pirámide de fuego.</span></strong><br>
+      <span class="en">Stack charcoal in a pyramid in one corner of the grill. Add crumpled newspaper underneath.</span>
+      <span class="es">Apilá el carbón en pirámide en una esquina, con papel de diario debajo.</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">02</div>
+    <div class="step-body">
+      <strong><span class="en">Light it.</span><span class="es">Prendelo.</span></strong><br>
+      <span class="en">Light the paper. Let it burn 30 to 40 minutes until the charcoal is grey-white and glowing.</span>
+      <span class="es">Prendé el papel. Dejalo 30 a 40 minutos hasta que el carbón esté gris y al rojo.</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">03</div>
+    <div class="step-body">
+      <strong><span class="en">Spread the embers.</span><span class="es">Esparcí las brasas.</span></strong><br>
+      <span class="en">Spread embers under the grill. Even heat is the goal.</span>
+      <span class="es">Distribuí las brasas debajo de la parrilla buscando calor parejo.</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">04</div>
+    <div class="step-body">
+      <strong><span class="en">Cook slowly.</span><span class="es">Cociná lento.</span></strong><br>
+      <span class="en">30 to 45 minutes for thick cuts, turning only once. Salt right before cooking, not before.</span>
+      <span class="es">30 a 45 minutos para cortes gruesos, dándolos vuelta una sola vez. Salá justo antes de poner la carne.</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">05</div>
+    <div class="step-body">
+      <strong><span class="en">Clean up.</span><span class="es">Limpiá todo.</span></strong><br>
+      <span class="en">Let embers cool completely. Brush the grill with a metal brush. Take any trash to the building's collection area.</span>
+      <span class="es">Dejá enfriar las brasas. Limpiá la parrilla con cepillo de metal. Llevá la basura al área del edificio.</span>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="en"><strong>Pro tip:</strong> pair with a Malbec from Mendoza. Any supermarket has good options under USD 10. Look for bottles from 2020 to 2022.</span>
+    <span class="es"><strong>Tip:</strong> Acompañá con un Malbec mendocino. Cualquier supermercado tiene buenas opciones por menos de USD 10. Buscá cosechas 2020 a 2022.</span>
+  </div>
+</section>
+
+<!-- ============ 08 TIPS ============ -->
+<section id="tips">
+  <div class="section-eyebrow">
+    <span class="en">09 · Practical Tips</span>
+    <span class="es">09 · Datos prácticos</span>
+  </div>
+  <h2>
+    <span class="en"><em>Practical</em> tips</span>
+    <span class="es"><em>Datos</em> prácticos</span>
+  </h2>
+
+  <h3><span class="en">Laundry</span><span class="es">Lavandería</span></h3>
+  <p>
+    <span class="en">The apartment doesn't have a washing machine. Several self-service and full-service laundries are within 4 blocks. Search <em>"lavadero"</em> on Google Maps. Most charge by the kilo (~USD 4 to 6 per load) and return clothes washed and folded the same day.</span>
+    <span class="es">El depto no tiene lavarropas. Hay varios lavaderos a 4 cuadras. Buscá <em>"lavadero"</em> en Google Maps. La mayoría cobra por kilo (USD 4 a 6 por carga) y devuelven la ropa lavada y doblada el mismo día.</span>
+  </p>
+
+  <h3><span class="en">Groceries</span><span class="es">Supermercados</span></h3>
+  <p>
+    <span class="en">Coto, Carrefour, and Disco are the main chains, all within walking distance. For specialty/imported items, try Jumbo Unicenter (10 minutes by bus). Chinatown has excellent Asian markets.</span>
+    <span class="es">Coto, Carrefour y Disco son las cadenas principales, todas a poca distancia. Para productos importados o especiales, Jumbo Unicenter (10 min en bus). El Barrio Chino tiene supermercados asiáticos muy buenos.</span>
+  </p>
+
+  <h3><span class="en">Drinking water</span><span class="es">Agua</span></h3>
+  <p>
+    <span class="en">Tap water is safe to drink in Buenos Aires. Many locals prefer bottled water for taste, but both are fine.</span>
+    <span class="es">El agua de la canilla es segura en Buenos Aires. Muchos prefieren agua embotellada por gusto, pero las dos están bien.</span>
+  </p>
+
+  <h3><span class="en">Power outlets</span><span class="es">Enchufes</span></h3>
+  <p>
+    <span class="en">Argentina uses Type I plugs (220V). The apartment has universal adapters in the kitchen drawer for European and US devices.</span>
+    <span class="es">Argentina usa enchufes tipo I (220V). En el cajón de la cocina hay adaptadores universales para dispositivos europeos y estadounidenses.</span>
+  </p>
+
+  <h3><span class="en">Air conditioning</span><span class="es">Aire acondicionado</span></h3>
+  <p>
+    <span class="en">Remote control is on the kitchen counter. Set to <strong>COOL</strong> in summer, <strong>HEAT</strong> in winter. Recommended temperature: 22 to 24°C.</span>
+    <span class="es">El control remoto está sobre la mesada. Poné <strong>COOL</strong> en verano y <strong>HEAT</strong> en invierno. Temperatura recomendada: 22 a 24°C.</span>
+  </p>
+</section>
+
+<!-- ============ 09 EMERGENCY ============ -->
+<section id="emergency">
+  <div class="section-eyebrow">
+    <span class="en">10 · Emergencies</span>
+    <span class="es">10 · Emergencias</span>
+  </div>
+  <h2>
+    <span class="en"><em>In case of</em> emergency</span>
+    <span class="es"><em>En caso de</em> emergencia</span>
+  </h2>
+
+  <div class="callout">
+    <span class="en"><strong>Message me first</strong> through the Airbnb app or WhatsApp. I can help coordinate a doctor, plumber, or whatever you need.</span>
+    <span class="es"><strong>Escribime primero</strong> por la app de Airbnb o WhatsApp. Te ayudo a coordinar médico, plomero o lo que necesites.</span>
+  </div>
+
+  <div class="emergency-card">
+    <h3><span class="en">Important numbers</span><span class="es">Números importantes</span></h3>
+    <div class="emergency-row">
+      <span class="emergency-label"><span class="en">Host (Airbnb chat)</span><span class="es">Anfitrión (chat de Airbnb)</span></span>
+      <span class="emergency-num"><span class="en">See booking details</span><span class="es">Ver detalles de reserva</span></span>
+    </div>
+    <div class="emergency-row">
+      <span class="emergency-label"><span class="en">Police</span><span class="es">Policía</span></span>
+      <span class="emergency-num"><a href="tel:911">911</a></span>
+    </div>
+    <div class="emergency-row">
+      <span class="emergency-label"><span class="en">Medical (SAME)</span><span class="es">Emergencia médica (SAME)</span></span>
+      <span class="emergency-num"><a href="tel:107">107</a></span>
+    </div>
+    <div class="emergency-row">
+      <span class="emergency-label"><span class="en">Fire dept.</span><span class="es">Bomberos</span></span>
+      <span class="emergency-num"><a href="tel:100">100</a></span>
+    </div>
+    <div class="emergency-row">
+      <span class="emergency-label"><span class="en">Tourist police</span><span class="es">Policía turística</span></span>
+      <span class="emergency-num"><a href="tel:08009995000">0800-999-5000</a></span>
+    </div>
+    <div class="emergency-row">
+      <span class="emergency-label"><span class="en">Nearest hospital</span><span class="es">Hospital más cercano</span></span>
+      <span class="emergency-num">
+        Hospital Pirovano · Monroe 3555
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJyXlud322vJURCZRxkPAscug" target="_blank" rel="noopener" style="margin-left: 8px;"><span class="arrow">↗</span> Maps</a>
+      </span>
+    </div>
+    <div class="emergency-row">
+      <span class="emergency-label"><span class="en">24h pharmacy</span><span class="es">Farmacia 24 hs</span></span>
+      <span class="emergency-num">
+        Farmacity · Av. Cabildo 2967
+        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJv__UdIK2vJURWi9xSesmztQ" target="_blank" rel="noopener" style="margin-left: 8px;"><span class="arrow">↗</span> Maps</a>
+      </span>
+    </div>
+  </div>
+
+  <h3><span class="en">Useful Spanish phrases</span><span class="es">Frases útiles</span></h3>
+  <div class="phrases">
+    <div class="phrase"><strong>Hello / Hi</strong><span>Hola</span></div>
+    <div class="phrase"><strong>Thank you</strong><span>Gracias</span></div>
+    <div class="phrase"><strong>Please</strong><span>Por favor</span></div>
+    <div class="phrase"><strong>Excuse me / Sorry</strong><span>Perdón</span></div>
+    <div class="phrase"><strong>Do you speak English?</strong><span>¿Hablás inglés?</span></div>
+    <div class="phrase"><strong>How much is it?</strong><span>¿Cuánto sale?</span></div>
+    <div class="phrase"><strong>The bill, please</strong><span>La cuenta, por favor</span></div>
+    <div class="phrase"><strong>I don't understand</strong><span>No entiendo</span></div>
+    <div class="phrase"><strong>Where is...?</strong><span>¿Dónde está...?</span></div>
+    <div class="phrase"><strong>Help!</strong><span>¡Ayuda!</span></div>
+  </div>
+</section>
+
+<!-- ============ 10 CHECKOUT ============ -->
+<section id="checkout">
+  <div class="section-eyebrow">
+    <span class="en">11 · Before you leave</span>
+    <span class="es">11 · Antes de irte</span>
+  </div>
+  <h2>
+    <span class="en"><em>Before</em> you leave</span>
+    <span class="es"><em>Antes</em> de irte</span>
+  </h2>
+
+  <p>
+    <span class="en">We hope you had a great stay. A few quick things before you check out:</span>
+    <span class="es">Esperamos que hayas tenido una gran estadía. Unas cositas rápidas antes del check-out:</span>
+  </p>
+
+  <div class="checkout-item">
+    <div class="check"></div>
+    <div><span class="en"><strong>Take out the trash</strong> to the building's collection area.</span><span class="es"><strong>Sacá la basura</strong> al área de recolección del edificio.</span></div>
+  </div>
+  <div class="checkout-item">
+    <div class="check"></div>
+    <div><span class="en"><strong>Wash any dishes</strong> you used.</span><span class="es"><strong>Lavá los platos</strong> que hayas usado.</span></div>
+  </div>
+  <div class="checkout-item">
+    <div class="check"></div>
+    <div><span class="en"><strong>Turn off A/C, lights, and heating.</strong></span><span class="es"><strong>Apagá el aire, las luces y la calefacción.</strong></span></div>
+  </div>
+  <div class="checkout-item">
+    <div class="check"></div>
+    <div><span class="en"><strong>Close all windows.</strong></span><span class="es"><strong>Cerrá todas las ventanas.</strong></span></div>
+  </div>
+  <div class="checkout-item">
+    <div class="check"></div>
+    <div><span class="en"><strong>Return the key</strong> to the lockbox.</span><span class="es"><strong>Dejá la llave</strong> en el lockbox.</span></div>
+  </div>
+  <div class="checkout-item">
+    <div class="check"></div>
+    <div><span class="en"><strong>Lock the apartment door.</strong></span><span class="es"><strong>Cerrá con llave</strong> la puerta del depto.</span></div>
+  </div>
+  <div class="checkout-item">
+    <div class="check"></div>
+    <div><span class="en"><strong>Send me a quick message</strong> confirming check-out.</span><span class="es"><strong>Mandame un mensaje</strong> confirmando el check-out.</span></div>
+  </div>
+
+  <div class="callout" style="margin-top: 32px;">
+    <span class="en"><strong>One last favor:</strong> if you enjoyed your stay, a 5-star review on Airbnb means the world to a small host like me. It helps other travelers find this place. Thank you for choosing Belgrano. Come back soon. 🇦🇷</span>
+    <span class="es"><strong>Un último favor:</strong> si la pasaste bien, una review de 5 estrellas en Airbnb es muy importante para un anfitrión chico como yo. Ayuda a otros viajeros a encontrar este lugar. Gracias por elegir Belgrano. Volvé pronto. 🇦🇷</span>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-mark">¡Hasta&nbsp;pronto!</div>
+  <div class="footer-text">
+    <span class="en">Belgrano Studio · Monroe 1560 · Buenos Aires, Argentina</span>
+    <span class="es">Belgrano Studio · Monroe 1560 · Buenos Aires, Argentina</span>
+  </div>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.documentElement.setAttribute('data-lang', lang);
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    document.documentElement.setAttribute('lang', lang);
+    try { localStorage.setItem('belgrano-lang', lang); } catch(e) {}
+  }
+
+  // Restore preference
+  try {
+    var saved = localStorage.getItem('belgrano-lang');
+    if (saved === 'es' || saved === 'en') setLang(saved);
+  } catch(e) {}
+
+  // Auto-detect Spanish browser on first visit
+  try {
+    if (!localStorage.getItem('belgrano-lang')) {
+      var browserLang = (navigator.language || 'en').toLowerCase();
+      if (browserLang.startsWith('es')) setLang('es');
+    }
+  } catch(e) {}
+</script>
+
+</body>
+</html>
