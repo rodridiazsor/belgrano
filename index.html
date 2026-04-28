@@ -85,15 +85,16 @@
   .lang-toggle button {
     border: 0;
     background: transparent;
-    padding: 6px 14px;
+    padding: 6px 12px;
     font-family: 'DM Sans', sans-serif;
     font-weight: 500;
     font-size: 12px;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
     color: var(--subtle);
     cursor: pointer;
     border-radius: 100px;
     transition: all 0.2s ease;
+    white-space: nowrap;
   }
   .lang-toggle button.active {
     background: var(--ink);
@@ -510,6 +511,48 @@
   [data-lang="en"] .es { display: none; }
   [data-lang="es"] .en { display: none; }
 
+  /* ---------- Floating Top button ---------- */
+  .top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 50;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    border: 0;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(26, 22, 18, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .top-btn.visible {
+    opacity: 0.92;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .top-btn:hover {
+    opacity: 1;
+    background: var(--accent);
+  }
+  .top-btn:active {
+    transform: scale(0.95);
+  }
+  @media print {
+    .top-btn { display: none; }
+  }
+
   /* ---------- Maps button ---------- */
   .maps-btn {
     display: inline-flex;
@@ -736,8 +779,8 @@
       <span>Belgrano Studio</span>
     </a>
     <div class="lang-toggle" role="tablist">
-      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
-      <button id="btn-es" onclick="setLang('es')">ES</button>
+      <button id="btn-en" class="active" onclick="setLang('en')">English</button>
+      <button id="btn-es" onclick="setLang('es')">Español</button>
     </div>
   </div>
 </header>
@@ -909,8 +952,8 @@
 
   <h4>1. Western Union</h4>
   <p>
-    <span class="en">The best rate for cash. Send money to yourself online, pick up in pesos at any branch. The reliable nearby branch is at <strong>La Pampa 2451</strong>, 10 min walking. It's the official location with multiple windows and less wait. Bring your passport. <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJPwgNGxS1vJURItmhcOeLJxo" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
-    <span class="es">La mejor cotización para efectivo. Te enviás dinero a vos mismo online y lo retirás en pesos en cualquier sucursal. La sucursal confiable cerca es <strong>La Pampa 2451</strong>, a 10 min caminando. Es el local oficial con varias ventanillas y menos espera. Llevá pasaporte. <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJPwgNGxS1vJURItmhcOeLJxo" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
+    <span class="en">The best rate for cash. Send money to yourself online, pick up in pesos at any branch. The reliable nearby branch is at <strong>La Pampa 2451</strong>, 10 min walking. It's the official location with multiple windows and less wait. Bring your passport. <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Western+Union+La+Pampa+2451%2C+Belgrano%2C+Buenos+Aires&query_place_id=ChIJPwgNGxS1vJURItmhcOeLJxo" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
+    <span class="es">La mejor cotización para efectivo. Te enviás dinero a vos mismo online y lo retirás en pesos en cualquier sucursal. La sucursal confiable cerca es <strong>La Pampa 2451</strong>, a 10 min caminando. Es el local oficial con varias ventanillas y menos espera. Llevá pasaporte. <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Western+Union+La+Pampa+2451%2C+Belgrano%2C+Buenos+Aires&query_place_id=ChIJPwgNGxS1vJURItmhcOeLJxo" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
   </p>
 
   <h4><span class="en">2. Foreign credit/debit cards</span><span class="es">2. Tarjeta extranjera</span></h4>
@@ -952,12 +995,12 @@
   <h3><span class="en">Subway & train nearby</span><span class="es">Subte y tren cerca</span></h3>
   <ul>
     <li>
-      <span class="en"><strong>Subway Line D</strong> at Congreso de Tucumán station, about 10 minutes walking. Direct line to downtown. <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJj45bHCq0vJURh5d8Ho2lybM" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
-      <span class="es"><strong>Subte línea D</strong> en la estación Congreso de Tucumán, a 10 minutos caminando. Te lleva directo al centro. <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJj45bHCq0vJURh5d8Ho2lybM" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
+      <span class="en"><strong>Subway Line D</strong> at Congreso de Tucumán station, about 10 minutes walking. Direct line to downtown. <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Estaci%C3%B3n+Congreso+de+Tucum%C3%A1n+L%C3%ADnea+D+Belgrano%2C+Buenos+Aires&query_place_id=ChIJj45bHCq0vJURh5d8Ho2lybM" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
+      <span class="es"><strong>Subte línea D</strong> en la estación Congreso de Tucumán, a 10 minutos caminando. Te lleva directo al centro. <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Estaci%C3%B3n+Congreso+de+Tucum%C3%A1n+L%C3%ADnea+D+Belgrano%2C+Buenos+Aires&query_place_id=ChIJj45bHCq0vJURh5d8Ho2lybM" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
     </li>
     <li>
-      <span class="en"><strong>Belgrano C train station</strong> at Av. Virrey Vértiz (between Juramento and Sucre), less than 10 min walking. Connects to Tigre Delta and Retiro (downtown). Mitre Line. <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJddGtA821vJURpunGRo96aXE" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
-      <span class="es"><strong>Estación Belgrano C</strong> en Av. Virrey Vértiz (entre Juramento y Sucre), a menos de 10 min caminando. Conecta con el Delta del Tigre y Retiro (centro). Línea Mitre. <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJddGtA821vJURpunGRo96aXE" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
+      <span class="en"><strong>Belgrano C train station</strong> at Av. Virrey Vértiz (between Juramento and Sucre), less than 10 min walking. Connects to Tigre Delta and Retiro (downtown). Mitre Line. <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Estaci%C3%B3n+Belgrano+C+Av+Virrey+V%C3%A9rtiz%2C+Belgrano%2C+Buenos+Aires&query_place_id=ChIJddGtA821vJURpunGRo96aXE" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
+      <span class="es"><strong>Estación Belgrano C</strong> en Av. Virrey Vértiz (entre Juramento y Sucre), a menos de 10 min caminando. Conecta con el Delta del Tigre y Retiro (centro). Línea Mitre. <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Estaci%C3%B3n+Belgrano+C+Av+Virrey+V%C3%A9rtiz%2C+Belgrano%2C+Buenos+Aires&query_place_id=ChIJddGtA821vJURpunGRo96aXE" target="_blank" rel="noopener" style="margin-left: 4px;"><span class="arrow">↗</span> Maps</a></span>
     </li>
   </ul>
 
@@ -1110,7 +1153,7 @@
     <div>
       <div class="attraction-name-row">
         <div class="attraction-name">Barrio Chino</div>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJk98H6tO1vJURpL2l1VBRe5Q" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Barrio+Chino+Belgrano%2C+Buenos+Aires&query_place_id=ChIJk98H6tO1vJURpL2l1VBRe5Q" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="attraction-distance"><span class="en">5 min walking</span><span class="es">5 min caminando</span></div>
     </div>
@@ -1124,7 +1167,7 @@
     <div>
       <div class="attraction-name-row">
         <div class="attraction-name"><span class="en">Avenida Cabildo</span><span class="es">Avenida Cabildo</span></div>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:Ek1Bdi4gQ2FiaWxkbyAmIEF2LiBKdXJhbWVudG8sIEMxNDI4IENkYWQuIEF1dMOzbm9tYSBkZSBCdWVub3MgQWlyZXMsIEFyZ2VudGluYSJmImQKFAoSCbttnYTTtbyVERZtoBN_fqE0EhQKEgm7bZ2E07W8lREWbaATf36hNBoUChIJ9X8d7yy0vJURVSdwKFqas7EaFAoSCdkqZrZ4tryVEUPZ9QKxbq8FIgoNtj9m6xVxNyjd" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Cabildo+y+Juramento+Belgrano%2C+Buenos+Aires&query_place_id=Ek1Bdi4gQ2FiaWxkbyAmIEF2LiBKdXJhbWVudG8sIEMxNDI4IENkYWQuIEF1dMOzbm9tYSBkZSBCdWVub3MgQWlyZXMsIEFyZ2VudGluYSJmImQKFAoSCbttnYTTtbyVERZtoBN_fqE0EhQKEgm7bZ2E07W8lREWbaATf36hNBoUChIJ9X8d7yy0vJURVSdwKFqas7EaFAoSCdkqZrZ4tryVEUPZ9QKxbq8FIgoNtj9m6xVxNyjd" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="attraction-distance"><span class="en">10 min walking</span><span class="es">10 min caminando</span></div>
     </div>
@@ -1138,7 +1181,7 @@
     <div>
       <div class="attraction-name-row">
         <div class="attraction-name">Estadio Monumental</div>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJ340B5jq0vJURijD6W6dgfz0" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Estadio+Monumental+Av+Pres+Figueroa+Alcorta+7597%2C+Buenos+Aires&query_place_id=ChIJ340B5jq0vJURijD6W6dgfz0" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="attraction-distance"><span class="en">15 min walking</span><span class="es">15 min caminando</span></div>
     </div>
@@ -1152,7 +1195,7 @@
     <div>
       <div class="attraction-name-row">
         <div class="attraction-name"><span class="en">Costanera</span><span class="es">Costanera</span></div>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:EklBdi4gQ29zdGFuZXJhIFJhZmFlbCBPYmxpZ2FkbywgQ2RhZC4gQXV0w7Nub21hIGRlIEJ1ZW5vcyBBaXJlcywgQXJnZW50aW5hIi4qLAoUChIJcYMVyRK1vJURQ0VDcKnpzZYSFAoSCb0M-U47yryVEYeO6IgugbOg" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Costanera+Norte+Av+Costanera+Rafael+Obligado%2C+Buenos+Aires&query_place_id=EklBdi4gQ29zdGFuZXJhIFJhZmFlbCBPYmxpZ2FkbywgQ2RhZC4gQXV0w7Nub21hIGRlIEJ1ZW5vcyBBaXJlcywgQXJnZW50aW5hIi4qLAoUChIJcYMVyRK1vJURQ0VDcKnpzZYSFAoSCb0M-U47yryVEYeO6IgugbOg" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="attraction-distance"><span class="en">10 min by bus/Uber</span><span class="es">10 min en bus/Uber</span></div>
     </div>
@@ -1166,7 +1209,7 @@
     <div>
       <div class="attraction-name-row">
         <div class="attraction-name"><span class="en">Lakes & Rosedal (Palermo)</span><span class="es">Lagos y Rosedal (Palermo)</span></div>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJ10xgN561vJURkon23PB48-E" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=El+Rosedal+Av+Infanta+Isabel%2C+Palermo%2C+Buenos+Aires&query_place_id=ChIJ10xgN561vJURkon23PB48-E" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="attraction-distance"><span class="en">20 min walking</span><span class="es">20 min caminando</span></div>
     </div>
@@ -1180,7 +1223,7 @@
     <div>
       <div class="attraction-name-row">
         <div class="attraction-name"><span class="en">Palermo & Distrito Arcos</span><span class="es">Palermo y Distrito Arcos</span></div>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJQdN_e8urSgARbCg4bRUD2NQ" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Distrito+Arcos+Paraguay+4979%2C+Palermo%2C+Buenos+Aires&query_place_id=ChIJQdN_e8urSgARbCg4bRUD2NQ" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="attraction-distance"><span class="en">10 min by Uber</span><span class="es">10 min en Uber</span></div>
     </div>
@@ -1194,7 +1237,7 @@
     <div>
       <div class="attraction-name-row">
         <div class="attraction-name"><span class="en">Hipódromo de Palermo</span><span class="es">Hipódromo de Palermo</span></div>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJm_83jKK1vJURi3Q-8AcPmyg" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Hip%C3%B3dromo+Argentino+de+Palermo+Av+del+Libertador+4101%2C+Buenos+Aires&query_place_id=ChIJm_83jKK1vJURi3Q-8AcPmyg" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="attraction-distance"><span class="en">10 min by Uber</span><span class="es">10 min en Uber</span></div>
     </div>
@@ -1222,7 +1265,7 @@
     <div>
       <div class="attraction-name-row">
         <div class="attraction-name">Vicente López</div>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJPSSbelOxvJURx2RPHjYNdC0" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Paseo+de+la+Costa+Vicente+L%C3%B3pez%2C+Buenos+Aires&query_place_id=ChIJPSSbelOxvJURx2RPHjYNdC0" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="attraction-distance"><span class="en">15 min by Uber</span><span class="es">15 min en Uber</span></div>
     </div>
@@ -1273,7 +1316,7 @@
       <div class="fav-name">
         Báltica Café
         <span class="fav-tag"><span class="en">specialty</span><span class="es">de autor</span></span>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJH-kds7y1vJURMpQRg8F-DzA" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=B%C3%A1ltica+Caf%C3%A9+Quesada+1798%2C+Buenos+Aires&query_place_id=ChIJH-kds7y1vJURMpQRg8F-DzA" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="fav-desc">
         <span class="en">Specialty coffee in Núñez (Quesada 1798). Pet-friendly, beautiful pastry, perfect spot for a slow morning. Open every day until 8 PM.</span>
@@ -1284,7 +1327,7 @@
       <div class="fav-name">
         Cuervo Café
         <span class="fav-tag"><span class="en">specialty</span><span class="es">de autor</span></span>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJpywsIrq1vJURZYcP-HGQHkk" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Cuervo+Caf%C3%A9+Juramento+1284%2C+Buenos+Aires&query_place_id=ChIJpywsIrq1vJURZYcP-HGQHkk" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="fav-desc">
         <span class="en">Bajo Belgrano branch (Juramento 1284). Specialty coffee with their own Colombian blend, plus homemade ice cream. A great combo. Closed Mondays.</span>
@@ -1295,11 +1338,33 @@
       <div class="fav-name">
         Dos Escudos
         <span class="fav-tag"><span class="en">classic</span><span class="es">clásico</span></span>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJRxb15Nu1vJURHLoMdEHP7nM" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Dos+Escudos+Arribe%C3%B1os+2321%2C+Buenos+Aires&query_place_id=ChIJRxb15Nu1vJURHLoMdEHP7nM" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="fav-desc">
         <span class="en">Right in Chinatown (Arribeños 2321). Not specialty coffee, but a Buenos Aires classic. Sandwiches de miga, medialunas, and the real neighborhood vibe. Open every day from 7 AM.</span>
         <span class="es">En pleno Barrio Chino (Arribeños 2321). No es café de autor, pero sí un clásico porteño. Sandwiches de miga, medialunas y la vibe del barrio. Abierto todos los días desde las 7.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Manifiesto
+        <span class="fav-tag"><span class="en">brunch</span><span class="es">brunch</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Manifiesto+Belgrano+Aguilar+2104%2C+Buenos+Aires&query_place_id=ChIJlxrDAki1vJURyWG5zPHgAOg" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Aguilar 2104. Bright corner spot with a beautiful patio. Excellent specialty coffee and the best brunch in the area. Try the asado wrap or the cinnamon roll. Open every day until 8 PM.</span>
+        <span class="es">Aguilar 2104. Esquina luminosa con un patio hermoso. Café de especialidad excelente y el mejor brunch de la zona. Probá el wrap de asado o el roll de canela. Abierto todos los días hasta las 20.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Togni's Café
+        <span class="fav-tag"><span class="en">pastry</span><span class="es">pastelería</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Togni%27s+Caf%C3%A9+Blanco+Encalada+1675%2C+Buenos+Aires&query_place_id=ChIJnxhpRAu1vJURV0xQ2ZxiNcc" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Blanco Encalada 1675, next to Togni's Pizza. French-style patisserie with the ovens right between the tables. The pistachio tart and the cherry financier are exceptional. Open every day until 8 PM.</span>
+        <span class="es">Blanco Encalada 1675, al lado de Togni's Pizza. Pastelería estilo francés con los hornos entre las mesas. La tarta de pistacho y el financier de cereza son una maravilla. Todos los días hasta las 20.</span>
       </div>
     </div>
   </div>
@@ -1312,7 +1377,7 @@
       <div class="fav-name">
         El Antojo Núñez
         <span class="fav-tag">⭐ <span class="en">a must</span><span class="es">imperdible</span></span>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJF82ySJi1vJURdd8IFTiJXuI" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=El+Antojo+N%C3%BA%C3%B1ez+Manuel+Ugarte+1699%2C+Buenos+Aires&query_place_id=ChIJF82ySJi1vJURdd8IFTiJXuI" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="fav-desc">
         <span class="en"><strong>If you only go to one place, go here.</strong> Manuel Ugarte 1699. Award-winning milanesas: generous, golden, served on huge plates. One order easily feeds two. Reserve, especially on weekends.</span>
@@ -1322,7 +1387,7 @@
     <div class="fav-card">
       <div class="fav-name">
         Cantina Núñez
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJCcxyN3m1vJURufgX_uDk_UM" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Cantina+N%C3%BA%C3%B1ez+Manuel+Ugarte+1682%2C+Buenos+Aires&query_place_id=ChIJCcxyN3m1vJURufgX_uDk_UM" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="fav-desc">
         <span class="en">Italian-Argentine cantina (Manuel Ugarte 1682), right across from El Antojo. Decor inspired by The Godfather. Homemade pasta: try the osobuco-stuffed ravioli or the lasagna. Reserve for dinner.</span>
@@ -1332,7 +1397,7 @@
     <div class="fav-card">
       <div class="fav-name">
         Bodegón Núñez
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJ95GN7ya0vJUR6uNzHSXFLEU" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Bodeg%C3%B3n+N%C3%BA%C3%B1ez+Arribe%C3%B1os+3198%2C+Buenos+Aires&query_place_id=ChIJ95GN7ya0vJUR6uNzHSXFLEU" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="fav-desc">
         <span class="en">A traditional Argentine bodegón (Arribeños 3198), same owners as Cantina Núñez. Big portions, no fuss. Try the milanesa napolitana or a steak. Open every day.</span>
@@ -1342,7 +1407,7 @@
     <div class="fav-card">
       <div class="fav-name">
         Togni's Pizza
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJP7ENABS1vJURYJbZJGkegRo" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Togni+Pizza+Blanco+Encalada+1675%2C+Buenos+Aires&query_place_id=ChIJP7ENABS1vJURYJbZJGkegRo" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="fav-desc">
         <span class="en">By chef Máximo Togni (Blanco Encalada 1675), a few blocks away in Bajo Belgrano. Argentine-style pizza with character: thick, generous, plenty of cheese. Try the muzzarella or the fugazzeta.</span>
@@ -1353,11 +1418,233 @@
       <div class="fav-name">
         Aire Libre
         <span class="fav-tag">🌿 <span class="en">scenic</span><span class="es">hermoso</span></span>
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJY4wivp61vJURnGSPwRQL9lc" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Aire+Libre+Av+del+Libertador+6327%2C+Buenos+Aires&query_place_id=ChIJY4wivp61vJURnGSPwRQL9lc" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
       </div>
       <div class="fav-desc">
         <span class="en">Modern Buenos Aires cuisine in a beautiful urban garden (Av. del Libertador 6327), just a few blocks from the apartment. Centenary trees, glass walls, executive lunch menus and dinner from 6 PM. Closed Mondays.</span>
         <span class="es">Cocina porteña moderna en un jardín urbano hermoso (Av. del Libertador 6327), a pocas cuadras del depto. Árboles centenarios, paredes vidriadas, menú ejecutivo al mediodía y cena desde las 18. Cierra los lunes.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Corte Comedor
+        <span class="fav-tag">🥩 <span class="en">steak</span><span class="es">parrilla</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Corte+Comedor+Av+Olaz%C3%A1bal+1391%2C+Buenos+Aires&query_place_id=ChIJRz6gfke1vJURQy4TWxMJuSY" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Modern Argentine steakhouse (Av. Olazábal 1391), a few blocks from the apartment. Premium cuts, excellent wine list, refined yet relaxed atmosphere. The world-class steak is the star, but don't skip the sides and salads. Reservation strongly recommended for dinner.</span>
+        <span class="es">Parrilla argentina moderna (Av. Olazábal 1391), a pocas cuadras del depto. Cortes premium, carta de vinos excelente, ambiente refinado pero relajado. El bife de chorizo es la estrella, pero no te saltees las guarniciones y ensaladas. Reservá sí o sí para la cena.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        No Tan Santos
+        <span class="fav-tag">🥩 <span class="en">steak</span><span class="es">parrilla</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=No+Tan+Santos+Nu%C3%B1ez+1650%2C+Buenos+Aires&query_place_id=ChIJ8wTwJie0vJUR4FB77Zcq9xQ" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Family-style parrilla (Núñez 1650) with a beautiful outdoor garden. Classic asado in a casual setting: vacío, entraña, chorizo, big salads, hot crispy fries. Great wine pairings. Book ahead for the garden.</span>
+        <span class="es">Parrilla de barrio (Núñez 1650) con un jardín hermoso. Asado clásico en ambiente relajado: vacío, entraña, chorizo, ensaladas grandes y papas crocantes. Buenos maridajes de vinos. Reservá para el jardín.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Norimoto
+        <span class="fav-tag">🍣 <span class="en">sushi</span><span class="es">sushi</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Norim%C5%8Dto+Av+del+Libertador+6739%2C+Buenos+Aires&query_place_id=ChIJ0evzrlK1vJUR93am-9Ix6BM" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Excellent sushi (Av. del Libertador 6739), just up the avenue from the apartment. Top-quality fish that melts in your mouth, hand rolls made in front of you. Full menu starts at 4 PM. No reservations, expect a short wait on weekends.</span>
+        <span class="es">Sushi excelente (Av. del Libertador 6739), subiendo por la avenida desde el depto. Pescado de primera calidad que se deshace en la boca, hand rolls hechos en el momento. El menú completo arranca a las 16. No toma reservas, esperá un poco los fines de semana.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Casa Sáenz
+        <span class="fav-tag"><span class="en">creative</span><span class="es">de autor</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Casa+S%C3%A1enz+Belgrano+Echeverr%C3%ADa+2102%2C+Buenos+Aires&query_place_id=ChIJdzy4L361vJUR8s4BjvTGUmo" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Creative Argentine kitchen (Echeverría 2102) with bold flavors and beautiful plating. Try the kimchi fries, the peach and blue cheese salad, or whatever the chef is excited about that week. No reservations.</span>
+        <span class="es">Cocina argentina creativa (Echeverría 2102) con sabores audaces y platos hermosos. Probá las papas con kimchi, la ensalada de durazno y queso azul, o lo que el chef esté entusiasmado esa semana. No toma reservas.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Quotidiano
+        <span class="fav-tag">🍝 <span class="en">pasta</span><span class="es">pasta</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Quotidiano+Bar+de+Pastas+Belgrano+O%27Higgins+1731%2C+Buenos+Aires&query_place_id=ChIJN4clyAm1vJURAjw3Ll1gJ1Q" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Pasta bar (O'Higgins 1731). Properly al dente pasta made fresh, with seasonal sauces. The pappardelle and the chocolate semifreddo are exceptional. Open every day until midnight.</span>
+        <span class="es">Bar de pastas (O'Higgins 1731). Pastas al dente recién hechas, con salsas de temporada. El pappardelle y el semifreddo de chocolate son excepcionales. Todos los días hasta medianoche.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Oporto Almacén
+        <span class="fav-tag">🍷 <span class="en">wine bar</span><span class="es">vinos</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Oporto+Almac%C3%A9n+11+de+Septiembre+4152%2C+Buenos+Aires&query_place_id=ChIJ9_Wpip-2vJURSyBdySgpgsM" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Beautiful spot (11 de Septiembre 4152) with great wine selection and Spanish-Argentine inspired plates. The terrace is lovely; reserve ahead. The provoleta and the eggplant starters are highlights.</span>
+        <span class="es">Lugar hermoso (11 de Septiembre 4152) con buena carta de vinos y platos hispano-argentinos. La terraza es divina, reservá. La provoleta y las entradas de berenjena son lo mejor.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Mostrador Santa Teresita
+        <span class="fav-tag">🌅 <span class="en">river view</span><span class="es">vista al río</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Mostrador+Santa+Teresita+Olivos&query_place_id=ChIJSeI8-OexvJUR7YFt2mbXZus" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">In the Olivos port (J. B. Alberdi 25), about 15 min by Uber. Counter-style restaurant with stunning river views. Worth the trip for sunset dinner. Seasonal menu with grilled meats, salads, and great desserts. Reservations recommended.</span>
+        <span class="es">En el puerto de Olivos (J. B. Alberdi 25), a 15 min en Uber. Restaurante de mostrador con vista espectacular al río. Vale la pena ir a cenar al atardecer. Menú estacional con parrilla, ensaladas y excelentes postres. Conviene reservar.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fav-category" style="margin-top: 44px;">
+    <span class="fav-category-label"><span class="en">Drinks & Bars</span><span class="es">Tragos y bares</span></span>
+  </div>
+  <div class="fav-list">
+    <div class="fav-card">
+      <div class="fav-name">
+        Mauer
+        <span class="fav-tag">🍸 <span class="en">cocktails</span><span class="es">cocktails</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Mauer+Bar+O%27Higgins+3573%2C+Buenos+Aires&query_place_id=ChIJv3_I1ve3vJURHgUEF8VUVSw" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Cool atmospheric bar (O'Higgins 3573) with great cocktails, craft beers from top local breweries, and excellent food. The burger and milanesa sandwich are classics. Open from 6 PM, late on weekends.</span>
+        <span class="es">Bar con onda (O'Higgins 3573), buenos cocktails, cervezas artesanales de las mejores cervecerías locales y comida muy rica. La hamburguesa y el sándwich de milanesa son clásicos. Abre a las 18, hasta tarde los fines de semana.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Temple Barrio Chino
+        <span class="fav-tag">🍺 <span class="en">brewpub</span><span class="es">cervecería</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Temple+Barrio+Chino+Echeverr%C3%ADa+1664%2C+Buenos+Aires&query_place_id=ChIJ7183xNW1vJURFASh4oXSnEc" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Lively brewpub in Chinatown (Echeverría 1664). Their own craft beers on tap, big space, good music. Great spot to start the night. Open until 1 AM weekdays, 3 AM weekends.</span>
+        <span class="es">Cervecería con onda en pleno Barrio Chino (Echeverría 1664). Cervezas artesanales propias, espacio grande, buena música. Ideal para arrancar la noche. Abre hasta la 1 entre semana, hasta las 3 los fines de semana.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Ogham Barrio Chino
+        <span class="fav-tag">🍺 <span class="en">pub</span><span class="es">pub</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Ogham+Barrio+Chino+Blanco+Encalada+1807%2C+Buenos+Aires&query_place_id=ChIJk9UfhVa1vJUR1x6SshnLSf8" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Cozy pub (Blanco Encalada 1807) with great beer, good service, and outdoor tables under the train tracks. Solid spot for an evening drink. Closes at midnight, later on weekends.</span>
+        <span class="es">Pub acogedor (Blanco Encalada 1807) con buena cerveza, buena atención y mesas afuera bajo las vías del tren. Buen lugar para una birra al atardecer. Cierra a medianoche, más tarde los fines de semana.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fav-category" style="margin-top: 44px;">
+    <span class="fav-category-label"><span class="en">Bakeries</span><span class="es">Panaderías</span></span>
+  </div>
+  <div class="fav-list">
+    <div class="fav-card">
+      <div class="fav-name">
+        Atelier Fuerza
+        <span class="fav-tag">🥐 <span class="en">top-tier</span><span class="es">top</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Atelier+Fuerza+Cuba+1813%2C+Buenos+Aires&query_place_id=ChIJ71-XMFq1vJURyn4Ris8Di-c" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Artisanal bakery (Cuba 1813). Some of the best medialunas and butter croissants in the city. Take-out only at this branch, but worth the walk. Open every day until 7 PM.</span>
+        <span class="es">Panadería artesanal (Cuba 1813). Algunas de las mejores medialunas y croissants de manteca de la ciudad. Solo take-away en esta sucursal, pero vale la caminada. Todos los días hasta las 19.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        La Argentina
+        <span class="fav-tag"><span class="en">classic</span><span class="es">clásico</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=La+Argentina+Bakery+Av+Cr%C3%A1mer+1891%2C+Buenos+Aires&query_place_id=ChIJMYVmntq1vJURzlWRhN60-Ok" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Classic neighborhood bakery and café (Av. Crámer 1891). Wide selection of pastries, sandwiches, salads, and cakes. Outdoor seating. Great for a casual coffee or breakfast. Open every day from 7:30 AM.</span>
+        <span class="es">Panadería y café del barrio (Av. Crámer 1891). Gran variedad de facturas, sándwiches, ensaladas y tortas. Tiene mesas afuera. Ideal para un café o desayuno tranquilo. Todos los días desde las 7:30.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fav-category" style="margin-top: 44px;">
+    <span class="fav-category-label"><span class="en">Ice Cream 🍦</span><span class="es">Helados 🍦</span></span>
+  </div>
+  <div class="fav-list">
+    <div class="fav-card">
+      <div class="fav-name">
+        Lucciano's
+        <span class="fav-tag">⭐ <span class="en">best</span><span class="es">los mejores</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Lucciano%27s+Monroe+2801%2C+Buenos+Aires&query_place_id=ChIJGTMtIAC3vJURyYPmkByOlSY" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Italian-style ice cream right on Monroe (2801), super close to the apartment. Creamy textures, generous portions, signature paletas. Open every day until late. The closest stop for a post-dinner treat.</span>
+        <span class="es">Helado estilo italiano en Monroe 2801, súper cerca del depto. Texturas cremosas, porciones generosas, paletas características. Abre todos los días hasta tarde. La parada obligada después de cenar.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Rapanui
+        <span class="fav-tag">🍫 <span class="en">premium</span><span class="es">premium</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Rapanui+Av+Elcano+3127%2C+Buenos+Aires&query_place_id=ChIJafqkoNm1vJURfTnbNrrl7so" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Patagonian artisanal ice cream and chocolate (Av. Elcano 3127), in a beautiful old building. The Sambayón and Lemon Pie flavors are unforgettable. Also great chocolates and alfajores to take home.</span>
+        <span class="es">Helado y chocolate artesanal patagónico (Av. Elcano 3127) en un edificio hermoso. Los sabores Sambayón y Lemon Pie son inolvidables. También chocolates y alfajores para llevar.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        LadoBueno
+        <span class="fav-tag"><span class="en">artisanal</span><span class="es">artesanal</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=LadoBueno+Cdad+de+la+Paz+407%2C+Buenos+Aires&query_place_id=ChIJd5RISMC1vJURDCkcculn_dU" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Artisanal ice cream (Ciudad de la Paz 407). The dulce de leche bombón is a must. Lots of flavors, friendly service, calm atmosphere. Open every day until midnight.</span>
+        <span class="es">Helado artesanal (Ciudad de la Paz 407). El dulce de leche bombón es obligatorio. Muchos sabores, buena atención, ambiente tranquilo. Todos los días hasta medianoche.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Cremolatti
+        <span class="fav-tag"><span class="en">gelato</span><span class="es">gelato</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Cremolatti+Av+Olaz%C3%A1bal+1790%2C+Buenos+Aires&query_place_id=ChIJj2NuyGa1vJURgxYZj3L7MhY" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Italian-style gelato (Av. Olazábal 1790). The cookies & cream and pistachio are excellent. Vegan and gluten-free options available. Beautiful interior, open until late.</span>
+        <span class="es">Gelato italiano (Av. Olazábal 1790). El cookies & cream y el pistacho son excelentes. Opciones veganas y sin gluten. Interior hermoso, abierto hasta tarde.</span>
+      </div>
+    </div>
+    <div class="fav-card">
+      <div class="fav-name">
+        Freddo
+        <span class="fav-tag"><span class="en">classic</span><span class="es">clásico</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Freddo+Av+Cabildo+2569%2C+Buenos+Aires&query_place_id=ChIJ0y7pVSq0vJURsfb0cVW3xGI" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Classic Argentine ice cream chain (Av. Cabildo 2569). Reliable and traditional, with all the classic flavors. The sweet potato (batata) and dulce de leche are the must-tries. Open every day until late.</span>
+        <span class="es">Heladería clásica argentina (Av. Cabildo 2569). Tradicional y confiable, con todos los sabores clásicos. La batata y el dulce de leche son obligatorios. Abre todos los días hasta tarde.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fav-category" style="margin-top: 44px;">
+    <span class="fav-category-label"><span class="en">Other</span><span class="es">Otros</span></span>
+  </div>
+  <div class="fav-list">
+    <div class="fav-card">
+      <div class="fav-name">
+        Showcase Belgrano
+        <span class="fav-tag">🎬 <span class="en">cinema</span><span class="es">cine</span></span>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Showcase+Belgrano+Monroe+1655%2C+Buenos+Aires&query_place_id=ChIJ2V7Zwy20vJURPJAnJoAzz78" target="_blank" rel="noopener"><span class="arrow">↗</span> Maps</a>
+      </div>
+      <div class="fav-desc">
+        <span class="en">Big multiplex right on Monroe (1655), literally on the same street as the apartment. 3 floors, comfy seats, 3D screens, plus snack bar and bowling. Book online for last-minute movie nights. Hollywood films usually keep the original audio with Spanish subtitles.</span>
+        <span class="es">Multicine grande en Monroe 1655, literalmente sobre la misma calle del depto. 3 pisos, butacas cómodas, salas 3D, candy bar y bowling. Reservá online si querés algo de último momento. Las películas de Hollywood suelen estar en idioma original con subtítulos en español.</span>
       </div>
     </div>
   </div>
@@ -1527,14 +1814,14 @@
       <span class="emergency-label"><span class="en">Nearest hospital</span><span class="es">Hospital más cercano</span></span>
       <span class="emergency-num">
         Hospital Pirovano · Monroe 3555
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJyXlud322vJURCZRxkPAscug" target="_blank" rel="noopener" style="margin-left: 8px;"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Hospital+Pirovano+Av+Monroe+3555%2C+Buenos+Aires&query_place_id=ChIJyXlud322vJURCZRxkPAscug" target="_blank" rel="noopener" style="margin-left: 8px;"><span class="arrow">↗</span> Maps</a>
       </span>
     </div>
     <div class="emergency-row">
       <span class="emergency-label"><span class="en">24h pharmacy</span><span class="es">Farmacia 24 hs</span></span>
       <span class="emergency-num">
         Farmacity · Av. Cabildo 2967
-        <a class="maps-btn" href="https://www.google.com/maps/place/?q=place_id:ChIJv__UdIK2vJURWi9xSesmztQ" target="_blank" rel="noopener" style="margin-left: 8px;"><span class="arrow">↗</span> Maps</a>
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Farmacity+Av+Cabildo+2967%2C+Belgrano%2C+Buenos+Aires&query_place_id=ChIJv__UdIK2vJURWi9xSesmztQ" target="_blank" rel="noopener" style="margin-left: 8px;"><span class="arrow">↗</span> Maps</a>
       </span>
     </div>
   </div>
@@ -1613,6 +1900,20 @@
     <span class="es">Belgrano Studio · Monroe 1560 · Buenos Aires, Argentina</span>
   </div>
 </footer>
+
+<a href="#top" class="top-btn" id="topBtn" aria-label="Back to top" title="Back to top">↑</a>
+
+<script>
+  // Show top button after scrolling
+  const topBtn = document.getElementById('topBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      topBtn.classList.add('visible');
+    } else {
+      topBtn.classList.remove('visible');
+    }
+  }, { passive: true });
+</script>
 
 <script>
   function setLang(lang) {
