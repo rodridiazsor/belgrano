@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>¿Dónde está el Sol? · Brújula solar</title>
+<meta name="description" content="Apunta tu celular y descubre dónde está el Sol usando la brújula y tu ubicación. Funciona offline.">
+
+<!-- Instalable como app -->
+<meta name="theme-color" content="#0d0f14">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sol">
+<link rel="manifest" href="sol.webmanifest">
+<link rel="apple-touch-icon" href="sol-icon.svg">
+
+<style>
+  :root {
+    --bg: #0d0f14;
+    --bg2: #151922;
+    --card: #1b212e;
+    --ink: #f3f1ea;
+    --muted: #8b94a7;
+    --line: #2a3242;
+    --sun: #ffc23d;
+    --sun-deep: #ff8c1a;
+    --sky: #4ea2ff;
+    --accent: #ffb020;
+    --good: #4ad07d;
+    --bad: #ff6b6b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: radial-gradient(120% 90% at 50% -10%, #1a2030 0%, var(--bg) 60%);
+    color: var(--ink);
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    touch-action: manipulation;
+  }
+  .app {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: max(14px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+    gap: 14px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .title {
+    display: flex; align-items: center; gap: 9px;
+    font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
+  }
+  .title .dot {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffe08a, var(--sun) 55%, var(--sun-deep));
+    box-shadow: 0 0 14px rgba(255,176,32,.55);
+  }
+  .btn-cam {
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    font-size: 13px; font-weight: 600;
+    padding: 8px 13px; border-radius: 999px;
+    display: flex; align-items: center; gap: 6px;
+    cursor: pointer;
+  }
+  .btn-cam.on { background: var(--accent); color: #1a1200; border-color: var(--accent); }
+
+  /* ---------- Visor (compass + AR share this stage) ---------- */
+  .stage {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  /* Compass dial */
+  .compass {
+    position: relative;
+    width: min(80vw, 360px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(78,162,255,.06), transparent 70%),
+      var(--bg2);
+    border: 1px solid var(--line);
+    box-shadow: inset 0 0 40px rgba(0,0,0,.5), 0 10px 40px rgba(0,0,0,.45);
+  }
+  .ring { position: absolute; inset: 0; transition: transform .12s linear; }
+  .tick {
+    position: absolute; left: 50%; top: 0;
+    width: 2px; height: 9px; margin-left: -1px;
+    background: var(--line); transform-origin: 50% calc(min(80vw,360px) / 2);
+  }
+  .tick.major { height: 15px; width: 2px; background: var(--muted); }
+  .card-label {
+    position: absolute; left: 50%; top: 22px;
+    transform: translateX(-50%);
+    font-weight: 700; font-size: 17px; color: var(--muted);
+    transform-origin: 50% calc(min(80vw,360px) / 2 - 22px);
+  }
+  .card-label.N { color: var(--bad); }
+
+  /* The "you are pointing here" fixed indicator at top */
+  .heading-mark {
+    position: absolute; left: 50%; top: -3px; transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 14px solid var(--ink);
+    z-index: 5;
+  }
+
+  /* Sun marker on the dial */
+  .sun-dot {
+    position: absolute; left: 50%; top: 50%;
+    width: 40px; height: 40px; margin: -20px 0 0 -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff1c2, var(--sun) 55%, var(--sun-deep));
+    box-shadow: 0 0 22px rgba(255,176,32,.7), 0 0 60px rgba(255,140,26,.4);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .12s linear, opacity .2s;
+    z-index: 4;
+  }
+  .sun-dot.below { background: #3a4252; box-shadow: none; opacity: .55; }
+  .sun-dot .ray { position:absolute; font-size: 11px; font-weight: 700; color:#3a2600; }
+
+  /* center readout inside compass */
+  .center {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 2px; text-align: center;
+    pointer-events: none;
+  }
+  .center .big { font-size: 40px; font-weight: 800; letter-spacing: -.02em; line-height: 1; }
+  .center .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .center .turn { margin-top: 8px; font-size: 13px; color: var(--accent); font-weight: 600; }
+
+  /* ---------- AR camera ---------- */
+  #cam {
+    position: fixed; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 0; display: none; background: #000;
+  }
+  body.cam-on { background: #000; }
+  body.cam-on .compass { display: none; }
+  .ar-layer { position: absolute; inset: 0; display: none; pointer-events: none; z-index: 3; }
+  body.cam-on .ar-layer { display: block; }
+  .ar-sun {
+    position: absolute; width: 64px; height: 64px; margin: -32px 0 0 -32px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff6dc, var(--sun) 50%, rgba(255,140,26,.85));
+    box-shadow: 0 0 30px rgba(255,176,32,.9), 0 0 80px rgba(255,140,26,.6);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 26px;
+    transition: left .08s linear, top .08s linear, opacity .2s;
+  }
+  .ar-sun.below { background: rgba(120,130,150,.5); box-shadow:none; }
+  .ar-hint {
+    position: absolute; left: 50%; bottom: 16%; transform: translateX(-50%);
+    background: rgba(0,0,0,.55); backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 10px 16px; border-radius: 999px;
+    font-size: 14px; font-weight: 600; display:none; gap:8px; align-items:center;
+    white-space: nowrap;
+  }
+  /* off-screen guide arrow */
+  .ar-arrow {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    font-size: 46px; color: var(--accent); display:none;
+    text-shadow: 0 2px 12px rgba(0,0,0,.8);
+  }
+
+  /* ---------- Bottom panel ---------- */
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  body.cam-on .panel { background: rgba(20,24,32,.7); backdrop-filter: blur(10px); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .stat { text-align: center; }
+  .stat .v { font-size: 19px; font-weight: 700; }
+  .stat .k { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-top: 2px; }
+  .stat .v.sun { color: var(--sun); }
+
+  .time-row { display: flex; align-items: center; gap: 12px; }
+  .time-row .now-btn {
+    flex: 0 0 auto; font-size: 12px; font-weight: 700;
+    border: 1px solid var(--line); background: var(--bg2); color: var(--ink);
+    padding: 7px 11px; border-radius: 999px; cursor: pointer;
+  }
+  .time-label { flex: 0 0 auto; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 15px; min-width: 92px; }
+  input[type=range] {
+    -webkit-appearance: none; appearance: none; flex: 1;
+    height: 5px; border-radius: 999px; background: var(--line); outline: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffe08a, var(--sun) 60%, var(--sun-deep));
+    box-shadow: 0 0 10px rgba(255,176,32,.6); cursor: pointer;
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 22px; height: 22px; border: none; border-radius: 50%;
+    background: var(--sun); box-shadow: 0 0 10px rgba(255,176,32,.6); cursor: pointer;
+  }
+  .riseset { display:flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
+  .riseset b { color: var(--ink); font-weight: 700; }
+
+  /* calibration */
+  .cal { display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted); }
+  .cal input[type=range]{ height:4px; }
+
+  /* ---------- Setup / permission overlay ---------- */
+  .overlay {
+    position: fixed; inset: 0; z-index: 50;
+    background: radial-gradient(120% 90% at 50% -10%, #1a2030 0%, var(--bg) 60%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 32px 26px; gap: 18px;
+  }
+  .overlay .sun-hero {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffe08a, var(--sun) 55%, var(--sun-deep));
+    box-shadow: 0 0 40px rgba(255,176,32,.6);
+  }
+  .overlay h1 { font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+  .overlay p { color: var(--muted); font-size: 15px; max-width: 320px; line-height: 1.5; }
+  .start-btn {
+    background: var(--accent); color: #1a1200; border: none;
+    font-size: 17px; font-weight: 800; padding: 15px 30px; border-radius: 999px;
+    cursor: pointer; box-shadow: 0 8px 30px rgba(255,176,32,.35);
+  }
+  .err { color: var(--bad); font-size: 13px; min-height: 18px; max-width: 320px; }
+  .hidden { display: none !important; }
+  a.link { color: var(--sky); text-decoration: none; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<video id="cam" playsinline muted autoplay></video>
+
+<!-- Setup overlay -->
+<div class="overlay" id="overlay">
+  <div class="sun-hero"></div>
+  <h1>¿Dónde está el Sol?</h1>
+  <p>Apunta tu celular hacia el horizonte y te muestro la posición del Sol según la brújula y tu ubicación.</p>
+  <button class="start-btn" id="startBtn">Comenzar</button>
+  <div class="err" id="setupErr"></div>
+  <a class="link" href="index.html">← Volver a la guía</a>
+</div>
+
+<!-- Main app -->
+<div class="app hidden" id="main">
+  <header>
+    <div class="title"><span class="dot"></span> Brújula solar</div>
+    <button class="btn-cam" id="camBtn">📷 Cámara</button>
+  </header>
+
+  <div class="stage">
+    <!-- AR overlay -->
+    <div class="ar-layer">
+      <div class="ar-sun" id="arSun">☀️</div>
+      <div class="ar-arrow" id="arArrow">▲</div>
+      <div class="ar-hint" id="arHint"></div>
+    </div>
+
+    <!-- Compass -->
+    <div class="compass" id="compass">
+      <div class="heading-mark"></div>
+      <div class="ring" id="ring"></div>
+      <div class="sun-dot" id="sunDot"><span class="ray">SOL</span></div>
+      <div class="center">
+        <div class="big" id="headBig">--°</div>
+        <div class="lbl" id="headLbl">tu rumbo</div>
+        <div class="turn" id="turnHint"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="stats">
+      <div class="stat"><div class="v sun" id="sAz">--°</div><div class="k">Azimut sol</div></div>
+      <div class="stat"><div class="v sun" id="sAlt">--°</div><div class="k">Altura sol</div></div>
+      <div class="stat"><div class="v" id="sDir">--</div><div class="k">Dirección</div></div>
+    </div>
+
+    <div class="time-row">
+      <button class="now-btn" id="nowBtn">Ahora</button>
+      <span class="time-label" id="timeLabel">--:--</span>
+      <input type="range" id="timeSlider" min="0" max="1439" step="1">
+    </div>
+
+    <div class="riseset">
+      <span>🌅 Amanece <b id="sunrise">--:--</b> <span id="sunriseDir"></span></span>
+      <span><span id="sunsetDir"></span> <b id="sunset">--:--</b> Atardece 🌇</span>
+    </div>
+
+    <div class="cal">
+      <span>Ajuste brújula</span>
+      <input type="range" id="calSlider" min="-30" max="30" step="1" value="0">
+      <span id="calVal" style="min-width:34px;text-align:right;">0°</span>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* =======================================================================
+   1. POSICIÓN DEL SOL  (algoritmo SunCalc / NOAA, sin dependencias)
+   ======================================================================= */
+const RAD = Math.PI / 180;
+const DAY_MS = 86400000, J1970 = 2440588, J2000 = 2451545;
+const E = RAD * 23.4397; // oblicuidad de la eclíptica
+
+const toJulian   = d => d.valueOf() / DAY_MS - 0.5 + J1970;
+const fromJulian = j => new Date((j + 0.5 - J1970) * DAY_MS);
+const toDays     = d => toJulian(d) - J2000;
+
+const rightAscension = (l, b) => Math.atan2(Math.sin(l) * Math.cos(E) - Math.tan(b) * Math.sin(E), Math.cos(l));
+const declination    = (l, b) => Math.asin(Math.sin(b) * Math.cos(E) + Math.cos(b) * Math.sin(E) * Math.sin(l));
+const azimuthFromS   = (H, phi, dec) => Math.atan2(Math.sin(H), Math.cos(H) * Math.sin(phi) - Math.tan(dec) * Math.cos(phi));
+const altitude       = (H, phi, dec) => Math.asin(Math.sin(phi) * Math.sin(dec) + Math.cos(phi) * Math.cos(dec) * Math.cos(H));
+const siderealTime   = (d, lw) => RAD * (280.16 + 360.9856235 * d) - lw;
+const solarMeanAnomaly = d => RAD * (357.5291 + 0.98560028 * d);
+
+function eclipticLongitude(M) {
+  const C = RAD * (1.9148 * Math.sin(M) + 0.02 * Math.sin(2 * M) + 0.0003 * Math.sin(3 * M));
+  const P = RAD * 102.9372;
+  return M + C + P + Math.PI;
+}
+function sunCoords(d) {
+  const M = solarMeanAnomaly(d);
+  const L = eclipticLongitude(M);
+  return { dec: declination(L, 0), ra: rightAscension(L, 0) };
+}
+// Devuelve azimut (desde el Norte, horario) y altura en GRADOS
+function sunPosition(date, lat, lng) {
+  const lw = RAD * -lng, phi = RAD * lat, d = toDays(date);
+  const c = sunCoords(d);
+  const H = siderealTime(d, lw) - c.ra;
+  let az = azimuthFromS(H, phi, c.dec) / RAD + 180; // 0 = Norte
+  az = (az % 360 + 360) % 360;
+  return { azimuth: az, altitude: altitude(H, phi, c.dec) / RAD };
+}
+
+// --- Amanecer / atardecer ---
+const J0 = 0.0009;
+const julianCycle  = (d, lw) => Math.round(d - J0 - lw / (2 * Math.PI));
+const approxTransit = (Ht, lw, n) => J0 + (Ht + lw) / (2 * Math.PI) + n;
+const solarTransitJ = (ds, M, L) => J2000 + ds + 0.0053 * Math.sin(M) - 0.0069 * Math.sin(2 * L);
+const hourAngle    = (h, phi, d) => Math.acos((Math.sin(h) - Math.sin(phi) * Math.sin(d)) / (Math.cos(phi) * Math.cos(d)));
+function getSunTimes(date, lat, lng) {
+  const lw = RAD * -lng, phi = RAD * lat, d = toDays(date);
+  const n = julianCycle(d, lw);
+  const ds = approxTransit(0, lw, n);
+  const M = solarMeanAnomaly(ds);
+  const L = eclipticLongitude(M);
+  const dec = declination(L, 0);
+  const Jnoon = solarTransitJ(ds, M, L);
+  const h0 = -0.833 * RAD;
+  const w = hourAngle(h0, phi, dec);
+  if (isNaN(w)) return { sunrise: null, sunset: null }; // sol de medianoche / noche polar
+  const Jset = solarTransitJ(approxTransit(w, lw, n), M, L);
+  const Jrise = Jnoon - (Jset - Jnoon);
+  return { sunrise: fromJulian(Jrise), sunset: fromJulian(Jset) };
+}
+
+/* =======================================================================
+   2. UTILIDADES
+   ======================================================================= */
+const $ = id => document.getElementById(id);
+const COMPASS_PTS = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+const dirName = deg => COMPASS_PTS[Math.round(((deg % 360) + 360) % 360 / 22.5) % 16];
+const norm180 = a => { a = ((a + 180) % 360 + 360) % 360 - 180; return a; };
+const fmtTime = d => d ? d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "--:--";
+
+/* =======================================================================
+   3. ESTADO
+   ======================================================================= */
+const state = {
+  lat: null, lng: null,
+  heading: 0,        // rumbo del celular (grados desde el Norte real)
+  headingSmooth: null,
+  pitch: 0,          // inclinación (beta), para AR vertical
+  calOffset: 0,      // ajuste manual de brújula
+  baseDate: new Date(),   // día de referencia
+  minutes: null,     // minutos del día elegidos (null = ahora)
+  camOn: false
+};
+
+/* =======================================================================
+   4. BRÚJULA  (orientación del dispositivo)
+   ======================================================================= */
+function screenAngle() {
+  if (screen.orientation && typeof screen.orientation.angle === "number") return screen.orientation.angle;
+  return window.orientation || 0;
+}
+function handleOrientation(e) {
+  let h = null;
+  if (typeof e.webkitCompassHeading === "number") {
+    h = e.webkitCompassHeading;                 // iOS: ya es Norte verdadero
+  } else if (e.absolute && e.alpha != null) {
+    h = 360 - e.alpha;                           // Android (absoluto)
+  } else if (e.alpha != null) {
+    h = 360 - e.alpha;                           // fallback (relativo)
+  }
+  if (h == null) return;
+  h = (h + screenAngle()) % 360;                 // compensar rotación de pantalla
+
+  // suavizado con manejo de wrap-around
+  if (state.headingSmooth == null) state.headingSmooth = h;
+  else {
+    let diff = norm180(h - state.headingSmooth);
+    state.headingSmooth = (state.headingSmooth + diff * 0.25 + 360) % 360;
+  }
+  state.heading = (state.headingSmooth + state.calOffset + 360) % 360;
+
+  // inclinación para modo AR (beta: 0=plano, 90=vertical)
+  if (e.beta != null) state.pitch = e.beta - 90;
+}
+
+function startCompass() {
+  const evName = ("ondeviceorientationabsolute" in window) ? "deviceorientationabsolute" : "deviceorientation";
+  window.addEventListener(evName, handleOrientation, true);
+}
+
+/* =======================================================================
+   5. PERMISOS Y ARRANQUE
+   ======================================================================= */
+async function requestSensors() {
+  // Geolocalización
+  await new Promise((res, rej) => {
+    if (!navigator.geolocation) return rej(new Error("Tu navegador no soporta GPS."));
+    navigator.geolocation.getCurrentPosition(
+      p => { state.lat = p.coords.latitude; state.lng = p.coords.longitude; res(); },
+      err => rej(new Error("No pude obtener tu ubicación. Permití el acceso al GPS.")),
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+    // seguir actualizando ubicación
+    navigator.geolocation.watchPosition(
+      p => { state.lat = p.coords.latitude; state.lng = p.coords.longitude; },
+      () => {}, { enableHighAccuracy: true }
+    );
+  });
+
+  // Orientación (iOS 13+ requiere permiso explícito)
+  if (typeof DeviceOrientationEvent !== "undefined" &&
+      typeof DeviceOrientationEvent.requestPermission === "function") {
+    const perm = await DeviceOrientationEvent.requestPermission();
+    if (perm !== "granted") throw new Error("Necesito permiso para usar la brújula.");
+  }
+  startCompass();
+}
+
+$("startBtn").addEventListener("click", async () => {
+  const errEl = $("setupErr");
+  errEl.textContent = "";
+  $("startBtn").disabled = true;
+  $("startBtn").textContent = "Activando…";
+  try {
+    await requestSensors();
+    $("overlay").classList.add("hidden");
+    $("main").classList.remove("hidden");
+    buildCompass();
+    loop();
+  } catch (err) {
+    errEl.textContent = err.message || "Algo salió mal.";
+    $("startBtn").disabled = false;
+    $("startBtn").textContent = "Reintentar";
+  }
+});
+
+/* =======================================================================
+   6. CÁMARA (modo AR)
+   ======================================================================= */
+let camStream = null;
+async function toggleCam() {
+  if (state.camOn) {
+    state.camOn = false;
+    document.body.classList.remove("cam-on");
+    $("camBtn").classList.remove("on");
+    $("cam").style.display = "none";
+    if (camStream) { camStream.getTracks().forEach(t => t.stop()); camStream = null; }
+    return;
+  }
+  try {
+    camStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: "environment" } }, audio: false
+    });
+    const v = $("cam");
+    v.srcObject = camStream;
+    v.style.display = "block";
+    await v.play();
+    state.camOn = true;
+    document.body.classList.add("cam-on");
+    $("camBtn").classList.add("on");
+  } catch (err) {
+    alert("No pude abrir la cámara. Podés usar igual la brújula.");
+  }
+}
+$("camBtn").addEventListener("click", toggleCam);
+
+/* =======================================================================
+   7. CONSTRUIR LA BRÚJULA (marcas + letras)
+   ======================================================================= */
+function buildCompass() {
+  const ring = $("ring");
+  ring.innerHTML = "";
+  for (let deg = 0; deg < 360; deg += 5) {
+    const t = document.createElement("div");
+    t.className = "tick" + (deg % 45 === 0 ? " major" : "");
+    t.style.transform = `rotate(${deg}deg)`;
+    ring.appendChild(t);
+  }
+  ["N","E","S","W"].forEach((c, i) => {
+    const l = document.createElement("div");
+    l.className = "card-label " + c;
+    l.textContent = c;
+    l.style.transform = `translateX(-50%) rotate(${i * 90}deg)`;
+    ring.appendChild(l);
+  });
+}
+
+/* =======================================================================
+   8. LÍNEA DE TIEMPO
+   ======================================================================= */
+function currentDate() {
+  if (state.minutes == null) return new Date();
+  const d = new Date(state.baseDate);
+  d.setHours(0, 0, 0, 0);
+  d.setMinutes(state.minutes);
+  return d;
+}
+$("timeSlider").addEventListener("input", e => {
+  state.minutes = parseInt(e.target.value, 10);
+  state.baseDate = new Date();
+});
+$("nowBtn").addEventListener("click", () => { state.minutes = null; });
+$("calSlider").addEventListener("input", e => {
+  state.calOffset = parseInt(e.target.value, 10);
+  $("calVal").textContent = state.calOffset + "°";
+});
+
+/* =======================================================================
+   9. BUCLE DE RENDER
+   ======================================================================= */
+const FOV_H = 64;  // campo de visión horizontal aprox. de la cámara (grados)
+const FOV_V = 48;  // vertical
+
+function loop() {
+  requestAnimationFrame(loop);
+  if (state.lat == null) return;
+
+  const date = currentDate();
+  const sun = sunPosition(date, state.lat, state.lng);
+  const heading = state.heading;
+
+  /* --- panel de datos --- */
+  $("sAz").textContent  = Math.round(sun.azimuth) + "°";
+  $("sAlt").textContent = Math.round(sun.altitude) + "°";
+  $("sDir").textContent = dirName(sun.azimuth);
+
+  const mins = state.minutes == null ? (date.getHours() * 60 + date.getMinutes()) : state.minutes;
+  if (state.minutes == null) $("timeSlider").value = mins;
+  $("timeLabel").textContent = String(Math.floor(mins / 60)).padStart(2, "0") + ":" + String(mins % 60).padStart(2, "0")
+    + (state.minutes == null ? " · ahora" : "");
+
+  const times = getSunTimes(date, state.lat, state.lng);
+  $("sunrise").textContent = fmtTime(times.sunrise);
+  $("sunset").textContent  = fmtTime(times.sunset);
+  if (times.sunrise) $("sunriseDir").textContent = "(" + dirName(sunPosition(times.sunrise, state.lat, state.lng).azimuth) + ")";
+  if (times.sunset)  $("sunsetDir").textContent  = "(" + dirName(sunPosition(times.sunset, state.lat, state.lng).azimuth) + ")";
+
+  /* --- brújula --- */
+  $("headBig").textContent = Math.round(heading) + "° " + dirName(heading);
+  $("ring").style.transform = `rotate(${-heading}deg)`;
+
+  // posición del sol en el dial = azimut - rumbo (0 = al frente, arriba)
+  const rel = norm180(sun.azimuth - heading);          // -180..180
+  const R = $("compass").clientWidth / 2 - 30;
+  const a = rel * RAD;
+  const x = Math.sin(a) * R;
+  const y = -Math.cos(a) * R;
+  const sunDot = $("sunDot");
+  sunDot.style.transform = `translate(${x}px, ${y}px)`;
+  sunDot.classList.toggle("below", sun.altitude < 0);
+
+  // sugerencia de giro
+  const turn = $("turnHint");
+  if (sun.altitude < -1) {
+    turn.textContent = "🌙 El Sol está bajo el horizonte";
+  } else if (Math.abs(rel) < 6) {
+    turn.textContent = "✓ ¡Lo tenés al frente!";
+  } else {
+    turn.textContent = (rel > 0 ? "↻ Girá " : "↺ Girá ") + Math.round(Math.abs(rel)) + "° a la " + (rel > 0 ? "derecha" : "izquierda");
+  }
+
+  /* --- AR --- */
+  if (state.camOn) renderAR(rel, sun.altitude);
+}
+
+function renderAR(rel, alt) {
+  const arSun = $("arSun"), arArrow = $("arArrow"), arHint = $("arHint");
+  const W = window.innerWidth, H = window.innerHeight;
+  const vert = alt - state.pitch;                 // diferencia vertical vista-sol
+  const inH = Math.abs(rel) <= FOV_H / 2;
+  const inV = Math.abs(vert) <= FOV_V / 2;
+
+  if (inH && inV) {
+    const px = W / 2 + (rel / (FOV_H / 2)) * (W / 2);
+    const py = H / 2 - (vert / (FOV_V / 2)) * (H / 2);
+    arSun.style.display = "flex";
+    arSun.style.left = px + "px";
+    arSun.style.top = py + "px";
+    arSun.classList.toggle("below", alt < 0);
+    arArrow.style.display = "none";
+    arHint.style.display = "none";
+  } else {
+    arSun.style.display = "none";
+    // flecha guía hacia donde está el sol
+    arArrow.style.display = "block";
+    let dir;
+    if (Math.abs(rel) > FOV_H / 2) dir = rel > 0 ? "→ derecha" : "← izquierda";
+    else dir = vert > 0 ? "↑ arriba" : "↓ abajo";
+    let ang = Math.atan2(rel, vert) / RAD; // dirección de la flecha
+    arArrow.style.transform = `translate(-50%,-50%) rotate(${ang}deg)`;
+    arHint.style.display = "flex";
+    arHint.textContent = alt < 0 ? "El Sol está bajo el horizonte · " + dir : "Movete hacia: " + dir;
+  }
+}
+
+/* =======================================================================
+   10. SERVICE WORKER (offline)
+   ======================================================================= */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sol-sw.js").catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

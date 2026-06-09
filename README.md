@@ -19,6 +19,21 @@ A single-page guide covering everything a guest needs during their stay:
 - Emergency numbers
 - Check-out instructions
 
+## Bonus: Brújula solar 🌞
+
+A standalone tool to find the Sun's position by pointing your phone.
+
+🌐 **Live:** https://rodridiazsor.github.io/belgrano/sol.html
+
+- Uses the phone's **compass** + **GPS** to show where the Sun is (azimuth & altitude)
+- **Camera (AR) mode**: point your phone and see the Sun marker overlaid on the real view
+- **Time slider** to preview the Sun's position at any hour, plus sunrise/sunset directions
+- Self-contained `sol.html`, no dependencies — solar math (SunCalc/NOAA) runs fully offline
+- Installable as a PWA ("Add to Home Screen") via `sol.webmanifest` + service worker
+- Manual compass-offset slider for calibration
+
+> Requires HTTPS (GitHub Pages provides it). On iOS, tap **Comenzar** to grant motion/orientation access.
+
 ## Stack
 
 - Single-file HTML, CSS, vanilla JS

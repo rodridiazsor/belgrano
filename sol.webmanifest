@@ -1,0 +1,19 @@
+{
+  "name": "¿Dónde está el Sol? · Brújula solar",
+  "short_name": "Sol",
+  "description": "Apuntá tu celular y descubrí dónde está el Sol usando la brújula y tu ubicación.",
+  "start_url": "sol.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d0f14",
+  "theme_color": "#0d0f14",
+  "icons": [
+    {
+      "src": "sol-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
